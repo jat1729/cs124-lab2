@@ -1,0 +1,14 @@
+body {
+    background: lightblue;
+}
+
+ul {
+    list-style: square;
+    list-style-icon: outside;
+    background: burlywood;
+}
+
+ol {
+    list-style: none;
+    background: cornflowerblue;
+}
