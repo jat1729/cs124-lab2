@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 640px !important; width: 360px !important;">
 <head>
     <meta charset="UTF-8">
     <title>To-Do List</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Nidus-Sans/nidus_sans/stylesheet.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
 <h1>To-Do List</h1>
-<ol>
-    <li>ACADEMICS</li>
+<div class="completed">
     <ul>
-        <li>CS 124 HW 3</li>
-        <li>CS 140 Notes</li>
-        <li>CS 70 Notes</li>
+        <li>Buy new Grisham book</li>
     </ul>
-    <li>CAREER</li>
+</div>
+<div class="uncompleted">
     <ul>
-        <li>Interview with Any.do</li>
-        <li>Info Session</li>
-        <li>Apply to Spotify</li>
+        <li>Waiting for your command</li>
     </ul>
-</ol>
-<i class="fa fa-trash-o"></i>
+</div>
+<div class="addButton"></div>
+<button class="button"><i class="trashCan"></i></button>
+<button class="button"><i class="newTask"></i></button>
 </body>
 </html>
