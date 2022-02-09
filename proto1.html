@@ -6,32 +6,28 @@
     <link rel="stylesheet" href="proto1.css">
 </head>
 <body>
-<!--<div id="container">-->
     <div id="taskbar">
+        <button id="show-incomplete-btn" class="btn">Show</button>
         <h1>To Do List</h1>
         <button id="remove-btn" class="btn">Trash</button>
-        <button id="show-incomplete-btn" class="btn">Show</button>
     </div>
 
     <div id="listItems">
         <ul>
-            <div class="categories ">
-                <li>Academic</li>
-            </div>
-            <div class="categories">
-            <ul>
-                <div class="tasks">
-                    <li>Buy Grisham New Book</li>
-                    <li>Eat Lunch</li>
-                </div>
-            </ul>
-            </div>
+            <li class="categories ">Academic</li>
+                <li class="categories">
+                    Work
+                    <button class="drop down"> Drop down </button>
+                    <ul>
+                        <li class="tasks">Buy Grisham New Book</li>
+                        <li class="tasks">Eat Lunch</li>
+                    </ul>
+                </li>
         </ul>
     </div>
 
     <div id="botton-bar">
         <button id="add-btn" class="btn">+</button>
     </div>
-<!--</div>-->
 </body>
 </html>

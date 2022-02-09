@@ -36,9 +36,10 @@ h1 {
 #taskbar {
     background-color: #84CEEB;
     /*position: fixed;*/
-    display: grid;
-    grid-template-columns: 80px 200px 80px;
+    display: flex;
+    /*grid-template-columns: 80px 200px 80px;*/
     /*grid-row: 1/ span 1;*/
+    flex-direction: row;
     border-radius: 0 0 15px 15px;
     justify-content: center;
 }
@@ -59,7 +60,7 @@ h1 {
 
 .btn {
     background-color: #8860D0;
-    color: white;
+    color: black;
     text-align: center;
     border: none;
     border-radius: 12px;
@@ -74,10 +75,12 @@ h1 {
 
 #remove-btn {
     grid-column: 3/span 1;
+    padding: 7px 7px;
 }
 
 #show-incomplete-btn {
-    grid-column: 1/span 1;
+    padding: 7px 7px;
+
 }
 
 #add-btn {
@@ -101,10 +104,11 @@ h1 {
     font-size: 18px;
     background-color: #84CEEB;
     color: black;
-    padding-left: 0;
+    padding-left: 23px;
 }
 
 .task li {
+    padding-left: 0;
 
 }
 
