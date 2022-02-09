@@ -6,21 +6,28 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="Nidus-Sans/nidus_sans/stylesheet.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+<calendar></calendar>
+<div id="container">
 <h1>To-Do List</h1>
-<div class="completed">
-    <ul>
-        <li>Buy new Grisham book</li>
-    </ul>
-</div>
-<div class="uncompleted">
-    <ul>
-        <li>Waiting for your command</li>
-    </ul>
-</div>
-<div class="addButton"></div>
-<button class="button"><i class="trashCan"></i></button>
+<button class="btn"><i class="fa fa-trash"></i></button>
 <button class="button"><i class="newTask"></i></button>
+
+<div class="listItems">
+    <div id="completed">
+        <ul>
+            <li>Buy new Grisham book</li>
+        </ul>
+    </div>
+    <div id="uncompleted">
+        <ul>
+            <li>Waiting for your command</li>
+        </ul>
+    </div>
+</div>
+</div>
 </body>
+
 </html>

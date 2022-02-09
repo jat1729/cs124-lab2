@@ -1,0 +1,107 @@
+body {
+    /*border-style: solid;*/
+    background-color: dark;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /*grid-template-rows: 100px 1fr 100px;*/
+    /*grid-template-columns: 1fr 50px 1fr;*/
+}
+/*.container {*/
+/*    display: grid;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    display: grid;*/
+/*    grid-template-rows: 100px 1fr 100px;*/
+/*}*/
+
+ul {
+    padding-left: 0pt;
+}
+
+ul > ul {
+    padding-left: 20pt;
+    /*border-left: 10pt;*/
+}
+h1 {
+    /*border-style: solid;*/
+    /*border-color: #1afe49;*/
+    /*grid-column: 1/span 1;*/
+}
+
+#taskbar {
+    background-color: #062B79;
+    /*position: fixed;*/
+    display: grid;
+    grid-template-columns: 260px auto;
+    /*grid-row: 1/ span 1;*/
+    border-radius: 0px 0px 15px 15px;
+    justify-content: center;
+}
+
+#listItems {
+    width: 360px;
+    height: available;
+    /*grid-row: 2/span 1;*/
+    flex-basis: 80%;
+
+}
+
+#botton-bar{
+    /*grid-row: 3/span 1;*/
+    align-items: center;
+
+}
+
+button {
+    background-color: #FDE050;
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+}
+
+button:hover {
+    background-color: #666666;
+
+}
+
+#remove-btn {
+    grid-column: 2/span 1;
+}
+
+#remove-btn:hover {
+    background-color: darkblue;
+}
+
+#add-btn {
+    grid-column: 2/ span 1;
+    font-size: 35px;
+    align-self: center;
+}
+
+.weekdays {
+    background-color: #F1B351;
+    font-size: 32px;
+    font-weight: bold;
+    list-style-type: none;
+    padding-left: 0pt;
+    border-style: solid;
+    /*border-radius: 8px;*/
+    border-width: thin 0 thin 0;
+    border-color: #5995B7;
+
+}
+
+.tasks {
+    font-size: 18px;
+    background-color: darkgray;
+    color: beige;
+    padding-left: 0px;
+}
+
+.tasks:hover {
+
+}
