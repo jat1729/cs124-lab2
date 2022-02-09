@@ -119,6 +119,12 @@ h1 {
 .drop-down {
     border-radius: 12px;
     grid-column: 2/span 1;
+    background-color: #8860D0;
+    border: none;
+}
+
+.drop-down:hover {
+    background-color: #00b3ff;
 }
 
 /*.tasks:hover {*/
@@ -130,11 +136,20 @@ h1 {
     border-radius: 12px;
     grid-column: 3/span 1;
     background-color: #8860D0;
-
+    border: none;
 }
 
 .edit {
     border-radius: 12px;
     grid-column: 2/span 1;
     background-color: #8860D0;
+    border: none;
+}
+
+.edit:hover {
+    background-color: #00b3ff;
+}
+
+.delete:hover {
+    background-color: #00b3ff;
 }
