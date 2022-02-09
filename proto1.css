@@ -1,6 +1,7 @@
 body {
     /*border-style: solid;*/
-    background-color: dark;
+    font-family:Verdana;
+    background-color: #C1C8E4;
     width: 100%;
     height: 100%;
     display: flex;
@@ -17,7 +18,7 @@ body {
 /*}*/
 
 ul {
-    padding-left: 0pt;
+    padding-left: 0;
 }
 
 ul > ul {
@@ -27,16 +28,18 @@ ul > ul {
 h1 {
     /*border-style: solid;*/
     /*border-color: #1afe49;*/
-    /*grid-column: 1/span 1;*/
+    grid-column: 2/span 1;
+    alignment: center;
+
 }
 
 #taskbar {
-    background-color: #062B79;
+    background-color: #84CEEB;
     /*position: fixed;*/
     display: grid;
-    grid-template-columns: 260px auto;
+    grid-template-columns: 80px 200px 80px;
     /*grid-row: 1/ span 1;*/
-    border-radius: 0px 0px 15px 15px;
+    border-radius: 0 0 15px 15px;
     justify-content: center;
 }
 
@@ -45,35 +48,36 @@ h1 {
     height: available;
     /*grid-row: 2/span 1;*/
     flex-basis: 80%;
-
+    color: black;
 }
 
-#botton-bar{
+#bottom-bar{
     /*grid-row: 3/span 1;*/
-    align-items: center;
+    align-self: center;
 
 }
 
-button {
-    background-color: #FDE050;
+.btn {
+    background-color: #8860D0;
     color: white;
     text-align: center;
     border: none;
     border-radius: 12px;
     padding: 12px 20px;
+    font-size: 12px;
 }
 
-button:hover {
+.btn:hover {
     background-color: #666666;
 
 }
 
 #remove-btn {
-    grid-column: 2/span 1;
+    grid-column: 3/span 1;
 }
 
-#remove-btn:hover {
-    background-color: darkblue;
+#show-incomplete-btn {
+    grid-column: 1/span 1;
 }
 
 #add-btn {
@@ -82,24 +86,26 @@ button:hover {
     align-self: center;
 }
 
-.weekdays {
-    background-color: #F1B351;
+.categories {
+    background-color: #5AB9EA;
     font-size: 32px;
-    font-weight: bold;
+    font-weight: normal;
     list-style-type: none;
-    padding-left: 0pt;
+    padding-left: 0;
     border-style: solid;
     /*border-radius: 8px;*/
     border-width: thin 0 thin 0;
-    border-color: #5995B7;
-
 }
 
 .tasks {
     font-size: 18px;
-    background-color: darkgray;
-    color: beige;
-    padding-left: 0px;
+    background-color: #84CEEB;
+    color: black;
+    padding-left: 0;
+}
+
+.task li {
+
 }
 
 .tasks:hover {
