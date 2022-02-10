@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 640px !important; width: 360px !important;">
+<head>
+    <meta charset="UTF-8">
+    <title>Prototype List</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="https://kit.fontawesome.com/be4c9ba393.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="taskbar">
+        <button id="show-incomplete-btn" class="btn">Tasks to Complete</button>
+        <h1>To Do List</h1>
+        <button id="remove-btn" class="btn"><i class="fa-regular fa-trash-can"></i></button>
+    </div>
+
+    <div id="listItems">
+        <ul>
+            <li class="categories">
+                Personal
+                <button class="drop-down"><i class="fa-solid fa-chevron-down"></i></button>
+                <ul>
+                    <li class="tasks">
+                        Call Mom
+                        <button class="edit odd"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="completed odd"><i class="fa-solid fa-check"></i></button>
+                    </li>
+                </ul>
+            </li>
+            <li class="categories">
+                Work
+                <button class="drop-down"><i class="fa-solid fa-chevron-down"></i></button>
+                <ul>
+                    <li class="tasks">
+                        Text John about bank statements
+                        <button class="edit odd"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="completed odd"><i class="fa-solid fa-check"></i></button>
+                    </li>
+                    <li class="tasks">
+                        Eat Lunch
+                        <button class="edit even"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="completed even" ><i class="fa-solid fa-check"></i></button>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div id="bottom-bar">
+        <button id="add-btn" class="btn"><i class="fa-solid fa-plus"></i></button>
+    </div>
+</body>
+</html>
