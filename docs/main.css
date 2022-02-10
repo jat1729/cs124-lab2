@@ -8,69 +8,9 @@ body {
     border-style: solid;
 }
 
-#taskbar {
-    background-color: #84CEEB;
-    gap: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-#listItems {
-    color: black;
-    flex-basis: 80%;
-    width: 360px;
-    height: available;
-}
-
-#bottom-bar {
-    display: grid;
-    grid-template-columns: 1fr 60px 1fr;
-    grid-template-rows: 1fr;
-
-}
-
-ul {
-    padding-left: 0;
-}
-
-ul > ul {
-    padding-left: 20pt;
-}
-h1 {
-    font-family:Arial,sans-serif;
-    font-size: 32px;
-    font-weight: normal;
-    width: 180px;
-    text-align: center;
-}
-
-.categories {
-    font-family:Arial,sans-serif;
-    font-size: 28px;
-    font-weight: normal;
-    background-color: #5AB9EA;
-    list-style-type: none;
-    padding-left: 10px;
-    border-style: solid;
-    border-width: thin 0 thin 0;
-    display: grid;
-    grid-template-columns: 1fr 30px;
-}
-
-.tasks {
-    font-size: 20px;
-    background-color: #84CEEB;
-    color: black;
-    padding-left: 23px;
-    display: grid;
-    grid-template-columns: 1fr 30px 30px;
-}
-
-.tasks:nth-of-type(even) {
-    background-color: #5AB9EA;
-}
+/* Styling for the btn class which controls the style of
+the "tasks-to-complete-btn", "trash-btn", and "add-btn"
+ */
 
 .btn {
     text-align: center;
@@ -88,7 +28,69 @@ h1 {
     background-color: #666666;
 }
 
-.drop-down {
+/* Styling for the task bar */
+#taskbar {
+    background-color: #84CEEB;
+    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#tasks-to-complete-btn {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+
+    padding: 7px 7px;
+    width: 70px;
+    height: 43px;
+
+    border-radius: 12px;
+}
+
+h1 {
+    font-family:Arial,sans-serif;
+    font-size: 32px;
+    font-weight: normal;
+    width: 180px;
+    text-align: center;
+}
+
+#trash-btn {
+    border-radius: 12px;
+    padding: 7px 7px;
+    font-size: 20px;
+    width: 60px;
+}
+
+/* Styling for the list items */
+#list-items {
+    color: black;
+    flex-basis: 80%;
+    width: 360px;
+    height: available;
+}
+
+ul {
+    padding-left: 0;
+}
+
+.categories {
+    font-family:Arial,sans-serif;
+    font-size: 28px;
+    font-weight: normal;
+    background-color: #5AB9EA;
+    list-style-type: none;
+    padding-left: 10px;
+    border-style: solid;
+    border-width: thin 0 thin 0;
+    display: grid;
+    grid-template-columns: 1fr 30px;
+}
+
+.drop-down-btn {
     border-radius: 12px;
     grid-column: 2/span 1;
     background-color: #5AB9EA;
@@ -96,12 +98,41 @@ h1 {
     font-size: 20px;
 }
 
-.drop-down:hover {
+.drop-down-btn:hover {
     background-color: #666666;
 }
 
+ul > ul {
+    padding-left: 20pt;
+}
 
-.completed {
+.tasks {
+    font-size: 20px;
+    background-color: #84CEEB;
+    color: black;
+    padding-left: 23px;
+    display: grid;
+    grid-template-columns: 1fr 30px 30px;
+}
+
+.tasks:nth-of-type(even) {
+    background-color: #5AB9EA;
+}
+
+.completed{
+    text-decoration:line-through;
+    text-decoration-thickness: 2px;
+}
+
+.even-btn {
+    background-color: #5AB9EA;
+}
+
+.odd-btn {
+    background-color: #84CEEB; ;
+}
+
+.completed-btn {
     border-radius: 12px;
     grid-column: 3/span 1;
     background-color: #84CEEB;
@@ -109,26 +140,26 @@ h1 {
     font-weight: 100;
 }
 
-.completed:hover {
+.completed-btn:hover {
     background-color: #666666;
 }
 
-.edit {
+.edit-btn {
     border-radius: 12px;
     grid-column: 2/span 1;
     background-color: #84CEEB;
     border: none;
 }
 
-.edit:hover {
+.edit-btn:hover {
     background-color: #666666;
 }
 
-#remove-btn {
-    border-radius: 12px;
-    padding: 7px 7px;
-    font-size: 20px;
-    width: 60px;
+/* Styling for the bottom bar*/
+#bottom-bar {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    grid-template-rows: 1fr;
 }
 
 #add-btn {
@@ -148,28 +179,8 @@ h1 {
     background: #666666;
 }
 
-#show-incomplete-btn {
-    font-family:Arial, sans-serif;
-    font-size: 12px;
-    font-weight: bold;
 
-    padding: 7px 7px;
-    width: 70px;
-    height: 43px;
 
-    border-radius: 12px;
-}
 
-.even {
-    background-color: #5AB9EA;
-}
-
-.odd {
-    background-color: #84CEEB; ;
-}
-
-.incomplete {
-    text-decoration:line-through;
-}
 
 
