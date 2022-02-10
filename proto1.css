@@ -1,6 +1,6 @@
 body {
     /*border-style: solid;*/
-    font-family:Verdana;
+    font-family: Arial,cursive;
     background-color: #C1C8E4;
     width: 100%;
     height: 100%;
@@ -57,14 +57,15 @@ h1 {
 }
 
 .btn {
-    background-color: #8860D0;
+    background-color: #84CEEB;
     color: black;
     text-align: center;
-    border-top: solid;
-    border-bottom: solid;
-    border-left: solid;
-    border-right: solid;
-    border-radius: 12px;
+    border: none;
+    /*border-top: solid;*/
+    /*border-bottom: solid;*/
+    /*border-left: solid;*/
+    /*border-right: solid;*/
+    /*border-radius: 12px;*/
     padding: 12px 20px;
     font-size: 12px;
 }
@@ -94,6 +95,9 @@ h1 {
     grid-row: 1/span 1;
     font-size: 25px;
     vertical-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 }
 
@@ -113,13 +117,23 @@ h1 {
 .tasks {
     font-size: 18px;
     background-color: #84CEEB;
-    border-style: solid;
-    border-width: thin thin thin 0;
     color: black;
     padding-left: 23px;
     display: grid;
     grid-template-columns: 1fr  30px 30px;
 }
+
+.tasks:nth-of-type(even) {
+    background-color: #5AB9EA;
+}
+
+.completed:nth-of-type(odd) {
+    background-color: #5AB9EA;
+}
+
+/*.edit:nth-of-type(even) {*/
+/*    background-color: #5AB9EA;*/
+/*}*/
 
 .task li {
     padding-left: 0;
@@ -129,7 +143,7 @@ h1 {
 .drop-down {
     border-radius: 12px;
     grid-column: 2/span 1;
-    background-color: #8860D0;
+    background-color: #5AB9EA;
     border: none;
     font-size: 20px;
 }
@@ -143,10 +157,10 @@ h1 {
 
 /*}*/
 
-.delete {
+.completed {
     border-radius: 12px;
     grid-column: 3/span 1;
-    background-color: #8860D0;
+    background-color: #84CEEB;
     border: none;
     font-weight: 100;
 }
@@ -154,7 +168,7 @@ h1 {
 .edit {
     border-radius: 12px;
     grid-column: 2/span 1;
-    background-color: #8860D0;
+    background-color: #84CEEB;
     border: none;
 }
 
