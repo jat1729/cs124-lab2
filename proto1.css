@@ -84,6 +84,8 @@ h1 {
 #show-incomplete-btn {
     padding: 7px 7px;
     width: 60px;
+    font-size: 10px;
+    height: 43px;
 
 }
 
@@ -111,6 +113,8 @@ h1 {
 .tasks {
     font-size: 18px;
     background-color: #84CEEB;
+    border-style: solid;
+    border-width: thin thin thin 0;
     color: black;
     padding-left: 23px;
     display: grid;
