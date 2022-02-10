@@ -50,6 +50,7 @@ the "tasks-to-complete-btn", "trash-btn", and "add-btn"
     border-radius: 12px;
 }
 
+/* To Do List heading */
 h1 {
     font-family:Arial,sans-serif;
     font-size: 32px;
@@ -77,6 +78,7 @@ ul {
     padding-left: 0;
 }
 
+/* Categories of items (Personal, Work, Academic) */
 .categories {
     font-family:Arial,sans-serif;
     font-size: 28px;
@@ -89,7 +91,7 @@ ul {
     display: grid;
     grid-template-columns: 1fr 30px;
 }
-
+/* Drop-Down button for expanding and collapsing list items */
 .drop-down-btn {
     border-radius: 12px;
     grid-column: 2/span 1;
@@ -102,6 +104,7 @@ ul {
     background-color: #666666;
 }
 
+/* Positioning tasks */
 ul > ul {
     padding-left: 20pt;
 }
@@ -119,11 +122,13 @@ ul > ul {
     background-color: #5AB9EA;
 }
 
+/* line-through for completed taks */
 .completed{
     text-decoration:line-through;
     text-decoration-thickness: 2px;
 }
 
+/* Background color of edit and check mark button */
 .even-btn {
     background-color: #5AB9EA;
 }
@@ -132,6 +137,7 @@ ul > ul {
     background-color: #84CEEB; ;
 }
 
+/* Check mark button */
 .completed-btn {
     border-radius: 12px;
     grid-column: 3/span 1;
@@ -143,7 +149,7 @@ ul > ul {
 .completed-btn:hover {
     background-color: #666666;
 }
-
+/* Edit/Pencil and Paper button */
 .edit-btn {
     border-radius: 12px;
     grid-column: 2/span 1;
