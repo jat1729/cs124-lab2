@@ -36,7 +36,6 @@ h1 {
     /*grid-template-columns: 80px 200px 80px;*/
     /*grid-row: 1/ span 1;*/
     flex-direction: row;
-    border-radius: 0 0 15px 15px;
     justify-content: center;
     align-items: center;
     gap: 20px;
@@ -61,7 +60,10 @@ h1 {
     background-color: #8860D0;
     color: black;
     text-align: center;
-    border: none;
+    border-top: solid;
+    border-bottom: solid;
+    border-left: solid;
+    border-right: solid;
     border-radius: 12px;
     padding: 12px 20px;
     font-size: 12px;
@@ -88,7 +90,9 @@ h1 {
 #add-btn {
     grid-column: 2/span 1;
     grid-row: 1/span 1;
-    font-size: 35px;
+    font-size: 25px;
+    vertical-align: center;
+
 }
 
 .categories {
@@ -123,6 +127,7 @@ h1 {
     grid-column: 2/span 1;
     background-color: #8860D0;
     border: none;
+    font-size: 20px;
 }
 
 .drop-down:hover {
@@ -139,6 +144,7 @@ h1 {
     grid-column: 3/span 1;
     background-color: #8860D0;
     border: none;
+    font-weight: 100;
 }
 
 .edit {

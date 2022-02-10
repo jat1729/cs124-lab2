@@ -4,34 +4,34 @@
     <meta charset="UTF-8">
     <title>Prototype List</title>
     <link rel="stylesheet" href="proto1.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/be4c9ba393.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="taskbar">
         <button id="show-incomplete-btn" class="btn">Tasks to Complete</button>
         <h1>To Do List</h1>
-        <button id="remove-btn" class="btn"><i class="fa fa-trash"></i></button>
+        <button id="remove-btn" class="btn"><i class="fa-regular fa-trash-can"></i></button>
     </div>
 
     <div id="listItems">
         <ul>
             <li class="categories ">
                 Academic
-                <button class="drop-down">V</button>
+                <button class="drop-down"><i class="fa-solid fa-chevron-right"></i></button>
             </li>
             <li class="categories">
                 Work
-                <button class="drop-down">V</button>
+                <button class="drop-down"><i class="fa-solid fa-chevron-down"></i></button>
                 <ul>
                     <li class="tasks">
                         Buy Grisham New Book
-                        <button class="edit">...</button>
-                        <button class="delete"><img src="deleteImage.png" width="20px"></button>
+                        <button class="edit"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="delete"><i class="fa-solid fa-x"></i></button>
                     </li>
                     <li class="tasks">
                         Eat Lunch
-                        <button class="edit">...</button>
-                        <button class="delete"><img src="deleteImage.png" width="20px"></button>
+                        <button class="edit"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="delete"><i class="fa-solid fa-x"></i></button>
                     </li>
                 </ul>
             </li>
@@ -39,7 +39,7 @@
     </div>
 
     <div id="bottom-bar">
-        <button id="add-btn" class="btn">+</button>
+        <button id="add-btn" class="btn"><i class="fa-solid fa-plus"></i></button>
     </div>
 </body>
 </html>
