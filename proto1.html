@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <title>Prototype List</title>
     <link rel="stylesheet" href="proto1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div id="taskbar">
-        <button id="show-incomplete-btn" class="btn">Show</button>
+        <button id="show-incomplete-btn" class="btn">Tasks to Complete</button>
         <h1>To Do List</h1>
-        <button id="remove-btn" class="btn">Trash</button>
+        <button id="remove-btn" class="btn"><i class="fa fa-trash"></i></button>
     </div>
 
     <div id="listItems">
@@ -25,19 +26,19 @@
                     <li class="tasks">
                         Buy Grisham New Book
                         <button class="edit">...</button>
-                        <button class="delete">X</button>
+                        <button class="delete"><img src="deleteImage.png" width="20px"></button>
                     </li>
                     <li class="tasks">
                         Eat Lunch
                         <button class="edit">...</button>
-                        <button class="delete">X</button>
+                        <button class="delete"><img src="deleteImage.png" width="20px"></button>
                     </li>
                 </ul>
             </li>
         </ul>
     </div>
 
-    <div id="botton-bar">
+    <div id="bottom-bar">
         <button id="add-btn" class="btn">+</button>
     </div>
 </body>
