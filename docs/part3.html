@@ -7,45 +7,45 @@
     <script src="https://kit.fontawesome.com/be4c9ba393.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div id="taskbar">
-        <button id="show-incomplete-btn" class="btn">Tasks to Complete</button>
-        <h1>To Do List</h1>
-        <button id="remove-btn" class="btn"><i class="fa-regular fa-trash-can"></i></button>
-    </div>
+<div id="taskbar">
+    <button id="tasks-to-complete-btn" class="btn">Tasks to Complete</button>
+    <h1>To Do List</h1>
+    <button id="trash-btn" class="btn"><i class="fa-regular fa-trash-can"></i></button>
+</div>
 
-    <div id="listItems">
-        <ul>
-            <li class="categories">
-                Personal
-                <button class="drop-down"><i class="fa-solid fa-chevron-down"></i></button>
-                <ul>
-                    <li class="tasks">
-                        Call Mom
-                        <button class="edit odd"><i class="fa-regular fa-pen-to-square"></i></button>
-                        <button class="completed odd"><i class="fa-solid fa-check"></i></button>
-                    </li>
-                </ul>
-            </li>
-            <li class="categories">
-                Work
-                <button class="drop-down"><i class="fa-solid fa-chevron-down"></i></button>
-                <ul>
-                    <li class="tasks">
-                        Text John
-                        <button class="edit odd"><i class="fa-regular fa-pen-to-square"></i></button>
-                        <button class="completed odd"><i class="fa-solid fa-check"></i></button>
-                    </li>
-                    <li class="tasks">
-                        Eat Lunch
-                        <button class="edit even"><i class="fa-regular fa-pen-to-square"></i></button>
-                        <button class="completed even" ><i class="fa-solid fa-check"></i></button>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div id="bottom-bar">
-        <button id="add-btn" class="btn"><i class="fa-solid fa-plus"></i></button>
-    </div>
+<div id="list-items">
+    <ul>
+        <li class="categories">
+            Personal
+            <button class="drop-down-btn"><i class="fa-solid fa-chevron-down"></i></button>
+            <ul>
+                <li class="tasks completed">
+                    Call Mom
+                    <button class="edit-btn odd-btn"><i class="fa-regular fa-pen-to-square"></i></button>
+                    <button class="completed-btn odd-btn"><i class="fa-solid fa-check"></i></button>
+                </li>
+            </ul>
+        </li>
+        <li class="categories">
+            Work
+            <button class="drop-down-btn"><i class="fa-solid fa-chevron-down"></i></button>
+            <ul>
+                <li class="tasks">
+                    Text John
+                    <button class="edit-btn odd-btn"><i class="fa-regular fa-pen-to-square"></i></button>
+                    <button class="completed-btn odd-btn"><i class="fa-solid fa-check"></i></button>
+                </li>
+                <li class="tasks">
+                    Eat Lunch
+                    <button class="edit-btn even-btn"><i class="fa-regular fa-pen-to-square"></i></button>
+                    <button class="completed-btn even-btn" ><i class="fa-solid fa-check"></i></button>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div id="bottom-bar">
+    <button id="add-btn" class="btn"><i class="fa-solid fa-plus"></i></button>
+</div>
 </body>
 </html>
