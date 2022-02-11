@@ -50,7 +50,7 @@ out their tasks once they finish, but we decided to relocate the icon to the top
 Additionally, a symmetric taskbar gives our to-do list an orderly look and organized perspective. 
 
 ## Difficulties
-###Retrieving icons and aligning them in a button
+### Retrieving icons and aligning them in a button
 We found searching for checkmark, trash can, and notepad icons to be quite difficult as we had to upload and resize the
 images from Safari. Additionally, we faced the obstacle of matching the color of the icons with our background
 colors and realized that this process took too much time and energy. Luckily, we were able to find a productive alternative:
@@ -59,7 +59,7 @@ already established icons. Once we retrieved the icons, we had trouble aligning 
 use of text-align and padding.
 
 
-###Color and Font
+### Color and Font
 We decided to use the "Clean and Energetic" color palette from [Dr. Milburn's color palettes](https://visme.co/blog/website-color-schemes/)
 as we want our to-do list to be refreshing, positive, and peaceful. We attempted to use a purple background for the 
 [buttons](purple.md) but five of the users from the user tests said that they would prefer the buttons to be subtle (no change in color 
