@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 640px !important; width: 360px !important;">
+<head>
+    <meta charset="UTF-8">
+    <title>Prototype List</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="https://kit.fontawesome.com/be4c9ba393.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="taskbar">
+        <button id="tasks-to-complete-btn" class="btn">Tasks to Complete</button>
+        <h1>To Do List</h1>
+        <button id="trash-btn" class="btn"><i class="fa-regular fa-trash-can"></i></button>
+    </div>
+
+    <div id="list-items">
+        <ul>
+            <li class="categories">
+                Personal
+                <button class="drop-down-btn"><i class="fa-solid fa-chevron-down"></i></button>
+                <ul>
+                    <li class="tasks completed">
+                        Call Mom
+                        <button class="edit-btn odd-btn"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="completed-btn odd-btn"><i class="fa-solid fa-check"></i></button>
+                    </li>
+                    <li class="tasks">
+                        Buy Grisham New Book
+                        <button class="edit-btn odd-btn"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="completed-btn odd-btn"><i class="fa-solid fa-check"></i></button>
+                    </li>
+                </ul>
+            </li>
+            <li class="categories">
+                Work
+                <button class="drop-down-btn"><i class="fa-solid fa-chevron-down"></i></button>
+                <ul>
+                    <li class="tasks">
+                        Text John
+                        <button class="edit-btn odd-btn"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="completed-btn odd-btn"><i class="fa-solid fa-check"></i></button>
+                    </li>
+                    <li class="tasks">
+                        Finish Lab
+                        <button class="edit-btn odd-btn"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="completed-btn odd-btn"><i class="fa-solid fa-check"></i></button>
+                    </li>
+                    <li class="tasks">
+                        Start React Videos
+                        <button class="edit-btn odd-btn"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="completed-btn odd-btn"><i class="fa-solid fa-check"></i></button>
+                    </li>
+                    <li class="tasks">
+                        Finish Readings
+                        <button class="edit-btn odd-btn"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="completed-btn odd-btn"><i class="fa-solid fa-check"></i></button>
+                    </li>
+                </ul>
+            </li>
+            <li class="categories">
+                Chores
+                <button class="drop-down-btn"><i class="fa-solid fa-chevron-right"></i></button>
+            </li>
+        </ul>
+    </div>
+    <div id="bottom-bar">
+        <button id="add-btn" class="btn"><i class="fa-solid fa-plus"></i></button>
+    </div>
+</body>
+</html>

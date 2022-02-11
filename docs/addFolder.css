@@ -25,10 +25,14 @@ body {
     background-color: #666666;
 }
 
-#new-task {
-    background-color: #84CEEB;
-    flex-basis: 7%;
+#insert-folder-name {
+    flex-basis: 80%;
 }
+
+#new-folder {
+    background-color: #84CEEB;
+}
+
 
 input {
     width: 99%;
@@ -42,52 +46,13 @@ input {
     color: black;
 }
 
-ul {
-    padding-left: 0;
-    flex-basis: 70%;
-}
-
-.select-folder {
-    background-color: #5AB9EA;
-    font-size: 20px;
-    font-weight: normal;
-    border-style: solid;
-    border-width: thin 0 thin 0;
-    display: grid;
-}
-
-.categories {
-    border-style: none;
-    display: grid;
-    grid-template-column: fr;
-}
-
-.even {
-    background-color: #5AB9EA;
-}
-
-.odd {
-    background-color: #84CEEB;
-}
-
-.folder-names {
-    height: 50px;
-    border: none;
-}
-
-.folder-names:hover {
-    border: none;
-    background-color: #666666;
-    grid-column: 1/span 1;
-}
-
 #bottom-bar {
     display: grid;
     grid-template-columns: 1fr 150px;
     flex-basis: 10%;
 }
 
-#add-task {
+#add-folder {
     grid-column: 2/ span 1;
     border-style: none;
     font-size: 18px;
@@ -95,6 +60,6 @@ ul {
     border-radius: 12px;
 }
 
-#add-task:hover {
+#add-folder:hover {
     background-color: #666666;
 }
