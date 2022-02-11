@@ -52,7 +52,7 @@ the "tasks-to-complete-btn", "trash-btn", and "add-btn"
 
 /* To Do List heading */
 h1 {
-    font-family:Arial,sans-serif;
+    font-family:Arial;
     font-size: 32px;
     font-weight: normal;
     width: 180px;
