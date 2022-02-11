@@ -31,7 +31,7 @@ body {
     font-size: 45px;
     background-color: #84CEEB;
     border: none;
-    justify-content: flex-start;
+    text-align: left;
 }
 
 .btn:hover {
