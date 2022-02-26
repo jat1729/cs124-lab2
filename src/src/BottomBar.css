@@ -1,0 +1,23 @@
+/* Styling for the bottom bar*/
+#bottom-bar {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    grid-template-rows: 1fr;
+}
+
+#add-btn {
+    font-size: 28px;
+    background-color: #C1C8E4;
+
+    grid-column: 2/span 1;
+    grid-row: 1/span 1;
+
+    vertical-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#add-btn:hover {
+    background: #666666;
+}

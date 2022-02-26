@@ -1,0 +1,21 @@
+/* Categories of items (Personal, Work, Academic) */
+.categories {
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+    font-weight: normal;
+    background-color: #5AB9EA;
+    list-style-type: none;
+    padding-left: 10px;
+    border-style: solid;
+    border-width: thin 0 thin 0;
+    display: grid;
+    grid-template-columns: 1fr 30px;
+}
+
+.drop-down-btn {
+    border-radius: 12px;
+    grid-column: 2/span 1;
+    background-color: #5AB9EA;
+    border: none;
+    font-size: 20px;
+}
