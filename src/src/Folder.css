@@ -17,12 +17,10 @@
     border-style: solid;
     border-width: thin 0 thin 0;
     display: grid;
-    grid-template-columns: 1fr 30px;
+    grid-template-columns: 1fr  30px 30px;
 }
 
-
-
-.drop-down-btn {
+.new-task {
     border-radius: 12px;
     grid-column: 2/span 1;
     background-color: #5AB9EA;
@@ -30,6 +28,23 @@
     font-size: 20px;
 }
 
+
+.drop-down-btn {
+    border-radius: 12px;
+    grid-column: 3/span 1;
+    background-color: #5AB9EA;
+    border: none;
+    font-size: 20px;
+}
+
+.drop-down-btn:hover {
+    background-color: #666666;
+}
+
 ul {
     padding-left: 0;
+}
+
+.task-container {
+    grid-column: 1/span 3;
 }

@@ -3,7 +3,6 @@ import ListItems from "./ListItems";
 import BottomBar from "./BottomBar";
 import {useEffect, useState} from 'react';
 import React from "react";
-import folder from "./Folder";
 
 const initialData = [
     {
@@ -44,23 +43,38 @@ const initialData = [
 
 
 function App() {
-    const [currentFolder, setCurrentFolder] = useState(initialData);
-    const [completedTasks, setCompletedTasks] = useState([]);
+    // instantiating and updating the data
+    const [data, setData] = useState(initialData);
+    // status of the "Tasks to complete" button
+    const [hideComplete, setHideComplete] = useState(false);
 
-    function handleTaskCompleted(taskId) {
-        if (completedTasks.includes(taskId)) {
-            setCompletedTasks(completedTasks.filter(t => t !== taskId));
-        } else {
-            setCompletedTasks([...completedTasks, taskId]);
-            console.log(completedTasks);
-        }
+    function setTaskProperty(folderId, taskId, property, value) {
+        setData(data.map(f => f.id === folderId ? {
+            ...f,
+            tasks: f.tasks.map(t => t.id === taskId ? {...t, [property]: value} : t)
+        } : f));
     }
-    function changeTaskName(newTaskName, taskId, folderId, taskList) {
-        setCurrentFolder(currentFolder.map(f => f.id === folderId ? {...f, ["tasks"]: taskList.map(t => t.id === taskId ? {...t, ["taskName"]: newTaskName} : t)} : f))
+
+    function deleteCompletedTasks() {
+        setData(data.map(folder => ({...folder, tasks: folder.tasks.filter(task => !task.completed)})));
+        console.log(data);
+        console.log("delete complete");
     }
+
+    function toggleTaskCompleted(taskId) {
+        setData(data.map(folder =>
+            ({...folder, tasks: folder.tasks.map(task =>
+                task.id === taskId
+                    ? {...task, completed: !task.completed}
+                    : task
+                )})
+            ));
+
+    }
+
     return <div>
-        <Taskbar/>
-        <ListItems data={currentFolder} onTaskChanged={changeTaskName} onTaskCompleted={handleTaskCompleted}/>
+        <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete} onDeleteCompletedTasks={deleteCompletedTasks}/>
+        <ListItems data={data} onTaskChanged={setTaskProperty} onTaskCompleted={toggleTaskCompleted} hideComplete={hideComplete}/>
         <BottomBar/>
     </div>
 }

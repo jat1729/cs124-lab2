@@ -1,13 +1,11 @@
 /* Positioning tasks */
-ul > ul {
-    padding-left: 20pt;
-}
 
 .tasks {
     font-size: 20px;
     background-color: #84CEEB;
     color: black;
     padding-left: 23px;
+    grid-column: 1/span 2;
     display: grid;
     grid-template-columns: 1fr 30px 30px;
 }
@@ -27,6 +25,8 @@ ul > ul {
     border-radius: 12px;
     grid-column: 2/span 1;
     border: none;
+    background-color: #84CEEB;
+
 }
 
 .edit-btn:hover {
@@ -38,7 +38,7 @@ input {
     width: 191px;
     height: 23px;
     grid-column: 1/span 1;
-    background-color: #84CEEB;
+    background-color: #5AB9EA;
     padding: 0;
     border: none;
     outline: none;
@@ -50,17 +50,10 @@ input {
     grid-column: 3/span 1;
     border: none;
     font-weight: 100;
+    background-color: #84CEEB;
+
 }
 
 .completed-btn:hover {
     background-color: #666666;
-}
-
-/* Background color of edit and check mark button */
-.even-btn {
-    background-color: #5AB9EA;
-}
-
-.odd-btn {
-    background-color: #84CEEB; ;
 }

@@ -4,34 +4,32 @@ import {useEffect, useState} from 'react';
 
 
 function Task(props) {
-    const [TaskName,setTaskName] = useState(false);
-    const [taskCompleted, setTaskCompleted] = useState(false);
+    const [editTask,setEditTask] = useState(false);
     const [se, setSe] = useState(props.task.taskName);
+
     function handleClickEditBtn(e) {
         console.log(se);
-        setTaskName(!TaskName);
+        setEditTask(!editTask);
     }
 
-    function handleChangeEditBtn(newTaskName, taskId, taskList) {
+    function handleChangeEditBtn(newTaskName) {
         setSe(newTaskName);
         // console.log(taskList)
-        props.onTaskChanged(newTaskName, taskId, props.folderId, taskList);
+        props.onTaskChanged(props.folderId, props.task.id, "taskName", props.taskList);
     }
 
-    function handleClickCompleteBtn(e) {
-        // props.onTaskCompleted(props.task.id);
-        props.task.complete = !props.task.complete;
-        setTaskCompleted(!taskCompleted);
+    function handleClickCompleteBtn() {
+        props.onTaskChanged(props.folderId, props.task.id, "completed",props.task.completed );
         props.onTaskCompleted(props.task.id);
-        console.log("Task completed",props.task.complete);
+        console.log("taskComplete:", props.task.completed);
     }
     return <div>
-        <li class={"tasks"}>
-            {TaskName ? <div><input type={"text"} value={se}
-                                    onChange={(e) => handleChangeEditBtn(e.target.value, props.task.id, props.taskList)}/></div>
-                                    : <div class={taskCompleted ? "completed" : ""}>{se}</div>}
-            <button className="edit-btn even-btn" onClick={handleClickEditBtn}><i className="fa-regular fa-pen-to-square"></i></button>
-            <button className="completed-btn even-btn" onClick={handleClickCompleteBtn}><i className="fa-solid fa-check"></i></button>
+        <li className={"tasks"}>
+            {editTask ? <div><input type={"text"} value={se}
+                                    onChange={(e) => handleChangeEditBtn(e.target.value)}/></div>
+                                    : <div class={props.task.completed ? "completed" : ""}>{se}</div>}
+            <button className="edit-btn" onClick={handleClickEditBtn}><i className="fa-regular fa-pen-to-square"></i></button>
+            <button className="completed-btn" onClick={(e)=>handleClickCompleteBtn()}><i className="fa-solid fa-check"></i></button>
         </li>
     </div>
 }
