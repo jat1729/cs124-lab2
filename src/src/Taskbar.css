@@ -29,6 +29,22 @@ h1 {
     text-align: center;
 }
 
+.btn {
+    text-align: center;
+    font-size: 12px;
+
+    background-color: #84CEEB;
+    border: none;
+    color: black;
+
+    padding: 12px 20px;
+    border-radius: 12px;
+}
+
+.btn:hover {
+    background-color: #666666;
+}
+
 #tasks-to-complete-btn {
     font-family: Arial, sans-serif;
     font-size: 12px;

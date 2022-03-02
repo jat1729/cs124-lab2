@@ -1,4 +1,5 @@
 import Task from './Task';
+import './Folder.css';
 
 function Folder(props) {
     return <div>
@@ -8,10 +9,9 @@ function Folder(props) {
                 <button className="drop-down-btn"><i className="fa-solid fa-chevron-right"></i></button>
                 <ul>
                     {props.tasks.map((task) =>
-                        <Task task={task}/>)}
+                        <Task task={task} onTaskChanged={props.onTaskChanged}/>)}
                 </ul>
             </li>
-
         </ul>
     </div>
 }

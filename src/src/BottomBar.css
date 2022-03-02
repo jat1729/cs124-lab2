@@ -6,7 +6,8 @@
 }
 
 #add-btn {
-    font-size: 28px;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
     background-color: #C1C8E4;
 
     grid-column: 2/span 1;
