@@ -19,10 +19,11 @@ function Task(props) {
     }
 
     function handleClickCompleteBtn(e) {
-        console.log("Task completed");
         // props.onTaskCompleted(props.task.id);
-        props.task.complete = true;
+        props.task.complete = !props.task.complete;
         setTaskCompleted(!taskCompleted);
+        props.onTaskCompleted(props.task.id);
+        console.log("Task completed",props.task.complete);
     }
     return <div>
         <li class={"tasks"}>

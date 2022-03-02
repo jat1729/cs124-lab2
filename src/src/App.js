@@ -47,8 +47,13 @@ function App() {
     const [currentFolder, setCurrentFolder] = useState(initialData);
     const [completedTasks, setCompletedTasks] = useState([]);
 
-    function handleTaskCompleted(task) {
-        setCompletedTasks([task]);
+    function handleTaskCompleted(taskId) {
+        if (completedTasks.includes(taskId)) {
+            setCompletedTasks(completedTasks.filter(t => t !== taskId));
+        } else {
+            setCompletedTasks([...completedTasks, taskId]);
+            console.log(completedTasks);
+        }
     }
     function changeTaskName(newTaskName, taskId, folderId, taskList) {
         setCurrentFolder(currentFolder.map(f => f.id === folderId ? {...f, ["tasks"]: taskList.map(t => t.id === taskId ? {...t, ["taskName"]: newTaskName} : t)} : f))
