@@ -3,6 +3,7 @@ import ListItems from "./ListItems";
 import BottomBar from "./BottomBar";
 import {useEffect, useState} from 'react';
 import React from "react";
+import folder from "./Folder";
 
 const initialData = [
     {
@@ -40,11 +41,16 @@ const initialData = [
     }
 ]
 
+
+
 function App() {
-    const [tasks, setEditTask] = useState(initialData)
+    const [currentFolder, setCurrentFolder] = useState(initialData)
+    function changeTaskName(newTaskName, taskId, folderId, taskList) {
+        setCurrentFolder(currentFolder.map(f => f.id === folderId ? {...f, ["tasks"]: taskList.map(t => t.id === taskId ? {...t, ["taskName"]: newTaskName} : t)} : f))
+    }
     return <div>
         <Taskbar/>
-        <ListItems data={tasks} onTaskChanged={setEditTask}/>
+        <ListItems data={currentFolder} onTaskChanged={changeTaskName}/>
         <BottomBar/>
     </div>
 }

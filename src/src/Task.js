@@ -4,20 +4,23 @@ import {useEffect, useState} from 'react';
 
 
 function Task(props) {
+    const [TaskName,setTaskName] = useState(false);
+    const [se, setSe] = useState(props.task.taskName);
     function handleClickEditBtn(e) {
-        console.log("yuh");
-        setTaskName(true);
+        console.log(se);
+        setTaskName(!TaskName);
     }
 
-    function handleChangeEditBtn(e) {
-        console.log(e.target.value);
-        props.onTaskChanged(e.target.value);
+    function handleChangeEditBtn(newTaskName, taskId, taskList) {
+        setSe(newTaskName);
+        // console.log(taskList)
+        props.onTaskChanged(newTaskName, taskId, props.folderId, taskList);
     }
-    const [TaskName,setTaskName] = useState(false)
+
     return <div>
         <li class={"tasks"}>
-            {TaskName ? <div><input type={"text"} value={props.task.taskName}
-                                    onChange={handleChangeEditBtn}/></div>: props.task.taskName}
+            {TaskName ? <div><input type={"text"} value={se}
+                                    onChange={(e) => handleChangeEditBtn(e.target.value, props.task.id, props.taskList)}/></div>: se}
             <button className="edit-btn even-btn" onClick={handleClickEditBtn}><i className="fa-regular fa-pen-to-square"></i></button>
             <button className="completed-btn even-btn"><i className="fa-solid fa-check"></i></button>
         </li>
