@@ -33,6 +33,17 @@ ul > ul {
     background-color: #666666;
 }
 
+input {
+    font-size: 20px;
+    width: 191px;
+    height: 23px;
+    grid-column: 1/span 1;
+    background-color: #84CEEB;
+    padding: 0;
+    border: none;
+    outline: none;
+}
+
 /* Check mark button */
 .completed-btn {
     border-radius: 12px;
