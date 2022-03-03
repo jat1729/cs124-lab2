@@ -9,16 +9,19 @@ function Task(props) {
         setEditTask(!editTask);
     }
 
+    // used for changing the task name
     function handleChangeEditBtn(newTaskName) {
         props.setTaskProperty(props.folder.id, props.task.id, "taskName", newTaskName);
     }
 
+    // marking tasks completed
     function handleClickCompleteBtn() {
         props.setTaskProperty(props.folder.id, props.task.id, "completed", !props.task.completed );
     }
+
     return <div>
         <li className={"tasks"}>
-            {editTask ?
+            {(editTask)?
                 <div>
                     <input id={"edit-task-input"}type={"text"} value={props.task.taskName}
                             onChange={(e) => handleChangeEditBtn(e.target.value)}/>
