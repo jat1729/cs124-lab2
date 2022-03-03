@@ -1,10 +1,12 @@
 import Taskbar from "./Taskbar";
-import ListItems from "./ListItems";
+import Folders from "./Folders";
 import BottomBar from "./BottomBar";
 import {useEffect, useState} from 'react';
 import React from "react";
+import './App.css';
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 
+// array of folders with tasks in each folder
 const initialData = [
     {
         id: 1,
@@ -49,30 +51,44 @@ function App() {
     // status of the "Tasks to complete" button
     const [hideComplete, setHideComplete] = useState(false);
 
+    // updating a field attribute of a task in initial data
     function setTaskProperty(folderId, taskId, property, value) {
-        setData(data.map(f => f.id === folderId ? {
-            ...f,
-            tasks: f.tasks.map(t => t.id === taskId ? {...t, [property]: value} : t)
-        } : f));
+        setData(data.map(f => (f.id === folderId) ?
+            {...f, tasks: f.tasks.map(t => t.id === taskId ?
+                    {...t, [property]: value}: t)
+            } : f));
     }
 
+    // updating a field attribute of a folder in initial data
+    function setFolderProperty(folderId, property, value) {
+        setData(data.map(f => (f.id === folderId) ?
+            {...f,[property]: value}:f));
+    }
+
+    // adding a new task to our initial data
     function addNewTask(folderId) {
-        console.log(data);
-        setData(data.map(f => f.id === folderId ? {
-            ...f,
-            tasks: [...f.tasks, {id: generateUniqueID(), taskName:"", completed: false}]
+        setData(data.map(f => (f.id === folderId) ?
+            {...f, tasks: [...f.tasks,
+                {id: generateUniqueID(), taskName:"New Task", completed: false}]
         } : f));
     }
 
+    // adding a new folder to our initial data
+    function addNewFolder() {
+        setData(data.concat({id:generateUniqueID(), folderName: "New Folder", tasks: [] }))
+    }
+
+    // deleting completed tasks from our initial data
     function deleteCompletedTasks() {
         setData(data.map(folder => ({...folder, tasks: folder.tasks.filter(task => !task.completed)})));
     }
 
 
-    return <div>
+    return <div id={'main-container'}>
         <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete} onDeleteCompletedTasks={deleteCompletedTasks}/>
-        <ListItems data={data} onTaskChanged={setTaskProperty} hideComplete={hideComplete} addNewTask={addNewTask}/>
-        <BottomBar/>
+        <Folders data={data} setFolderProperty={setFolderProperty} setTaskProperty={setTaskProperty}
+                 hideComplete={hideComplete} addNewTask={addNewTask}/>
+        <BottomBar addNewFolder={addNewFolder}/>
     </div>
 }
 

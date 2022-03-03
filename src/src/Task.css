@@ -1,5 +1,4 @@
 /* Positioning tasks */
-
 .tasks {
     font-size: 20px;
     background-color: #84CEEB;
@@ -33,7 +32,7 @@
     background-color: #666666;
 }
 
-input {
+#edit-task-input {
     font-size: 20px;
     width: 191px;
     height: 23px;

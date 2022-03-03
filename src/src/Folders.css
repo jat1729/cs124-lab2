@@ -1,0 +1,9 @@
+/* Styling for the list items */
+#folders {
+    color: black;
+    flex-basis: 80%;
+    flex-grow: 1;
+    width: 360px;
+    height: available;
+    overflow: scroll;
+}

@@ -1,23 +1,14 @@
-body {
-    max-height: 640px;
-    max-width: 320px;
-    font-family: Arial, sans-serif;
-    background-color: #C1C8E4;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    border-style: solid;
-}
-
 /* Styling for the task bar */
 #taskbar {
     background-color: #84CEEB;
     gap: 20px;
+    flex-grow: 1;
+    flex-basis: 10%;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    overflow: scroll;
 }
 
 /* To Do List heading */
