@@ -6,3 +6,7 @@
     height: available;
     overflow: scroll;
 }
+
+.folders::-webkit-scrollbar {
+    display: none;
+}
