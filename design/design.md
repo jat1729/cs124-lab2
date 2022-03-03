@@ -7,8 +7,7 @@ We conducted ten user tests to determine the phrase and eight out of the ten par
 "Tasks to Complete" was the most intuitive expression for showing only uncompleted items. The flow of the tasks to
 complete button can be found [here](taskstocomplete.md). Implementing the Tasks to Complete button and functionality
 was quite difficult as we had to utilize a useState to keep track of the "Tasks to Complete" and "All Tasks" button
-and pass the information to the Tasks component, so we hide the completed items. More information about the
-implementation can be found here [Taskbar.js](src/Taskbar.js)
+and pass the information to the Tasks component, so we hide the completed items.
 ## Delete All Completed Tasks
 
 ## Editing a Folder
@@ -19,7 +18,7 @@ implementation can be found here [Taskbar.js](src/Taskbar.js)
 The part of the design that we are most proud of are the dropdown icons as it lets users retract folders that they are not using. 
 We initially were considering to have the up and down chevron icon but after consulting with Prof. Rhodes we decided to 
 utilize the right and down [chevron icon](upvsdown.md). The flow of the expanding and collapsing a folder can be found 
-[here](taskstocomplete.md).
+[here](expandingandcollapsing.md).
 
 ## Editing a Task
 
