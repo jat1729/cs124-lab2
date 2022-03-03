@@ -28,6 +28,10 @@
     font-size: 20px;
 }
 
+.new-task:hover {
+    background-color: #666666;
+}
+
 
 .drop-down-btn {
     border-radius: 12px;

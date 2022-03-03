@@ -3,11 +3,12 @@ import ListItems from "./ListItems";
 import BottomBar from "./BottomBar";
 import {useEffect, useState} from 'react';
 import React from "react";
+import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 
 const initialData = [
     {
         id: 1,
-        folder: "Work",
+        folderName: "Work",
         tasks: [{
             id: 4,
             taskName: "Go To The Bank",
@@ -16,7 +17,7 @@ const initialData = [
     },
     {
         id: 2,
-        folder: "Personal",
+        folderName: "Personal",
         tasks: [{
             id: 5,
             taskName: "Call Mom",
@@ -25,7 +26,7 @@ const initialData = [
     },
     {
         id: 3,
-        folder: "Academic",
+        folderName: "Academic",
         tasks: [{
             id: 6,
             taskName: "Do CS 124",
@@ -55,26 +56,23 @@ function App() {
         } : f));
     }
 
+    function addNewTask(folderId) {
+        setData(data.map(f => f.id === folderId ? {
+            ...f,
+            tasks: f.tasks.push({id: generateUniqueID(), taskName:"", completed: false})
+        } : f));
+    }
+
     function deleteCompletedTasks() {
         setData(data.map(folder => ({...folder, tasks: folder.tasks.filter(task => !task.completed)})));
         console.log(data);
         console.log("delete complete");
     }
 
-    function toggleTaskCompleted(taskId) {
-        setData(data.map(folder =>
-            ({...folder, tasks: folder.tasks.map(task =>
-                task.id === taskId
-                    ? {...task, completed: !task.completed}
-                    : task
-                )})
-            ));
-
-    }
 
     return <div>
         <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete} onDeleteCompletedTasks={deleteCompletedTasks}/>
-        <ListItems data={data} onTaskChanged={setTaskProperty} onTaskCompleted={toggleTaskCompleted} hideComplete={hideComplete}/>
+        <ListItems data={data} onTaskChanged={setTaskProperty} hideComplete={hideComplete} addNewTask={addNewTask}/>
         <BottomBar/>
     </div>
 }
