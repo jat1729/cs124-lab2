@@ -1,5 +1,5 @@
 ## Link to React App
-The link to the app is [here](https://jat1729.github.io/cs124-lab2/).
+The link to our app is [here](https://jat1729.github.io/cs124-lab2/).
 
 ## Available Scripts
 
