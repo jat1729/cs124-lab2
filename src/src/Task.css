@@ -1,5 +1,6 @@
 /* Positioning tasks */
 .tasks {
+    text-overflow: clip;
     font-size: 20px;
     background-color: #84CEEB;
     color: black;
@@ -13,7 +14,7 @@
     background-color: #5AB9EA;
 }
 
-/* line-through for completed taks */
+/* line-through for completed task */
 .completed{
     text-decoration:line-through;
     text-decoration-thickness: 2px;
@@ -34,7 +35,7 @@
 
 #edit-task-input {
     font-size: 20px;
-    width: 191px;
+    width: 226px;
     height: 23px;
     grid-column: 1/span 1;
     background-color: #5AB9EA;
