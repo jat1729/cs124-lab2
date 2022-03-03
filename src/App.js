@@ -83,9 +83,9 @@ function App() {
         setData(data.map(folder => ({...folder, tasks: folder.tasks.filter(task => !task.completed)})));
     }
 
-
+    // Calling the three different components for our JSX
     return <div id={'main-container'}>
-        <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete} onDeleteCompletedTasks={deleteCompletedTasks}/>
+        <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete} DeleteCompletedTasks={deleteCompletedTasks}/>
         <Folders data={data} setFolderProperty={setFolderProperty} setTaskProperty={setTaskProperty}
                  hideComplete={hideComplete} addNewTask={addNewTask}/>
         <BottomBar addNewFolder={addNewFolder}/>

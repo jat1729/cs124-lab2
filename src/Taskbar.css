@@ -36,6 +36,7 @@ h1 {
     background-color: #666666;
 }
 
+/* Stying for task-to-complete button */
 #tasks-to-complete-btn {
     font-family: Arial, sans-serif;
     font-size: 12px;
@@ -48,6 +49,7 @@ h1 {
     border-radius: 12px;
 }
 
+/* Stying for trash button */
 #trash-btn {
     border-radius: 12px;
     padding: 7px 7px;

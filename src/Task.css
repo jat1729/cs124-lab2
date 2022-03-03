@@ -10,10 +10,6 @@
     grid-template-columns: 1fr 30px 30px;
 }
 
-.tasks:nth-of-type(even) {
-    background-color: #5AB9EA;
-}
-
 /* line-through for completed task */
 .completed{
     text-decoration:line-through;
@@ -33,6 +29,7 @@
     background-color: #666666;
 }
 
+/* Styling of form when we edit a task */
 #edit-task-input {
     font-size: 20px;
     width: 226px;

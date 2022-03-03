@@ -1,12 +1,14 @@
 import './Taskbar.css';
+
 function Taskbar(props) {
+    // toggles the status of the tasks to complete button
     function handleTaskToCompleteBtn(e) {
         props.setHideComplete(!props.hideComplete);
-        console.log("Task to complete status:",props.hideComplete);
     }
 
+    // deletes completed tasks
     function handleTrashBtn(e) {
-        props.onDeleteCompletedTasks();
+        props.DeleteCompletedTasks();
     }
 
     return <div id="taskbar">

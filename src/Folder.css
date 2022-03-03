@@ -1,4 +1,3 @@
-
 /* Categories of items (Personal, Work, Academic) */
 .folder {
     font-family: Arial, sans-serif;
@@ -13,6 +12,7 @@
     grid-template-columns: 1fr  30px 30px 30px;
 }
 
+/* Styling of form when we edit a folder */
 #edit-folder-input {
     font-size: 28px;
     width: 219px;
@@ -23,6 +23,7 @@
     outline: none;
 }
 
+/* Styling of edit folder button */
 .edit-folder-btn {
     border-radius: 20px;
     grid-column: 2/span 1;
@@ -34,6 +35,7 @@
     background-color: #666666;
 }
 
+/* Styling of new-task button */
 .new-task {
     border-radius: 12px;
     grid-column: 3/span 1;
@@ -46,7 +48,7 @@
     background-color: #666666;
 }
 
-
+/* Styling of drop-down button */
 .drop-down-btn {
     border-radius: 12px;
     grid-column: 4/span 1;

@@ -1,3 +1,4 @@
+/* General Styling */
 body {
     max-height: 640px;
     max-width: 320px;
@@ -8,6 +9,7 @@ body {
     border-style: solid;
 }
 
+/* General Layout */
 #main-container {
     max-height: 640px;
     max-width: 320px;

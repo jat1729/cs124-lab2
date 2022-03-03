@@ -5,8 +5,7 @@ import {useState} from "react";
 function Folder(props) {
     // used for determining the status of editing the tasks
     const [editFolder,setEditFolder] = useState(false);
-    // used to determine the direction of chevron button and whether
-    // tasks are shown
+    // used to determine the direction of chevron button and whether tasks are shown
     const [showTasks, setShowTasks] = useState(true);
 
     // Adding a new task
