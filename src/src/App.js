@@ -57,16 +57,15 @@ function App() {
     }
 
     function addNewTask(folderId) {
+        console.log(data);
         setData(data.map(f => f.id === folderId ? {
             ...f,
-            tasks: f.tasks.push({id: generateUniqueID(), taskName:"", completed: false})
+            tasks: [...f.tasks, {id: generateUniqueID(), taskName:"", completed: false}]
         } : f));
     }
 
     function deleteCompletedTasks() {
         setData(data.map(folder => ({...folder, tasks: folder.tasks.filter(task => !task.completed)})));
-        console.log(data);
-        console.log("delete complete");
     }
 
 

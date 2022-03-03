@@ -2,16 +2,12 @@ import Task from './Task';
 import './Folder.css';
 
 function Folder(props) {
-    // const [showTasks, setShowTasks] = useState(true);
-    // function toggleDropDownBtn() {
-    //     setShowTasks(!showTasks);
-    // }
 
     function addNewTask() {
         props.addNewTask(props.folder.id);
         console.log("task added", props.folder.id);
     }
-
+    console.log(props.folder)
     return <div>
         <ul>
             <li className={"categories"}>
