@@ -1,5 +1,5 @@
  import './Task.css';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 
 function Task(props) {
     // used for determining the status of editing the tasks

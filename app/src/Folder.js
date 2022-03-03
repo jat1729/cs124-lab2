@@ -46,7 +46,7 @@ function Folder(props) {
                 <button className={"new-task"} onClick={addNewTask}>
                     <i className="fa-solid fa-plus"></i>
                 </button>
-                {(showTasks && props.folder.tasks.length != 0) ?
+                {(showTasks && props.folder.tasks.length !== 0) ?
                 <button className="drop-down-btn" onClick={handleClickChevronBtn}>
                     <i className="fa-solid fa-chevron-down"></i>
                 </button>:
@@ -54,7 +54,7 @@ function Folder(props) {
                         <i className="fa-solid fa-chevron-right"></i>
                     </button>
                 }
-                {(showTasks && props.folder.tasks.length != 0) ?
+                {(showTasks && props.folder.tasks.length !== 0) ?
                     <ul className={"task-container"}>
                     {props.folder.tasks.map((task) => !(props.hideComplete && task.completed) ?
                         <Task key={task.id} task={task} folder={props.folder} setTaskProperty={props.setTaskProperty}

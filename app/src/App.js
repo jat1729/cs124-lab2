@@ -1,7 +1,7 @@
 import Taskbar from "./Taskbar";
 import Folders from "./Folders";
 import BottomBar from "./BottomBar";
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import React from "react";
 import './App.css';
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
