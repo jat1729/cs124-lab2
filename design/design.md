@@ -8,7 +8,7 @@ We conducted ten user tests to determine the phrase and eight out of the ten par
 complete button can be found [here](taskstocomplete.md). Implementing the Tasks to Complete button and functionality
 was quite difficult as we had to utilize a useState to keep track of the "Tasks to Complete" and "All Tasks" button
 and pass the information to the Tasks component, so we hide the completed items. More information about the
-implementation can be found here [Taskbar.js][src/Taskbar.js]
+implementation can be found here [Taskbar.js](src/Taskbar.js)
 ## Delete All Completed Tasks
 
 ## Editing a Folder
