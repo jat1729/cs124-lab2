@@ -1,6 +1,5 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Link to React App
+The link to the app is [here](https://jat1729.github.io/cs124-lab2/).
 
 ## Available Scripts
 
