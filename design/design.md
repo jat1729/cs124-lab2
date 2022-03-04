@@ -1,4 +1,9 @@
 # Lab 2 Design Document And Decisions
+# Introduction
+The creators of this to-do list app are Aditya Bhargava (HMC '23) and Joel Tan-Aristy (HMC '23). In this lab, 
+we designed and implemented a to-do list using React and JavaScript. What makes our to-do list different
+from other to-do lists is that we have an option for showing the tasks yet to complete, and we have folders to organize
+our tasks. 
 ## Tasks to Complete
 Showing only uncompleted items was a difficult constraint as there is no standard icon or button for displaying
 uncompleted items. We decided to keep the design simple and include text in a button. The different phrases we 
@@ -10,19 +15,31 @@ was quite difficult as we had to utilize a useState to keep track of the "Tasks 
 and pass the information to the Tasks component, so we hide the completed items.
 ## Delete All Completed Tasks
 
-## Editing a Folder
+## Editing a Task/Folder
 
 ## Adding a List Item to a Folder
 
 ## Expanding and Collapsing a Folder
-The part of the design that we are most proud of are the dropdown icons as it lets users retract folders that they are not using. 
-We initially were considering to have the up and down chevron icon but after consulting with Prof. Rhodes we decided to 
-utilize the right and down [chevron icon](upvsdown.md). The flow of the expanding and collapsing a folder can be found 
-[here](expandingandcollapsing.md).
+The part of the design that we are most proud of are the dropdown icons as it lets users retract folders that they are 
+not using. We initially were considering to have the up and down chevron icon but after consulting with Prof. Rhodes we 
+decided to utilize the right and down [chevron icon](upvsdown.md). The flow of the expanding and collapsing a folder can 
+be found [here](expandingandcollapsing.md). After completing user testing, we noticed that nine out of the ten users 
+easily understood the function of the Chevrons and was able to expand the task without any instructions.
 
-## Editing a Task
+[Scrolling Icon Issue]
 
 ## Marking a Task Complete
+We believe the line through the task is standard convention for marking items complete. Alternative designs were 
+including a checkmark next to the completed item, and completely removing the item from the to-do list. The drawbacks 
+of including a checkmark next to the completed item was that the use of numerous buttons next to the task would be 
+confusing and distracting. Additionally, completely removing the item would not allow users to revert their change as 
+they may have realized that their task is not actually complete. From our ten user tests, four users that the thickness 
+of the line was too bold, so we decided to reduce the `text-decoration-thickness` from 3px to 2px. The difference can 
+be seen [here](linethrough.md). One challenge we faced when implementing the action of marking an item complete was 
+having to traverse every folder and every task in the folder. To overcome this obstacle, we used a general `setTaskProperty` 
+function which set the `completed` attribute to the opposite of its current attribute. In this general `setTaskProperty`
+function, we utilized a nested mapping and the spread syntax to "alter" a given attribute. The flow of marking a task
+complete can be found [here](markingataskcomplete.md). 
 
 ## Adding a New Folder
 
