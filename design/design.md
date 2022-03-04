@@ -1,32 +1,65 @@
 # Lab 2 Design Document And Decisions
+
 # Introduction
-The creators of this to-do list app are Aditya Bhargava (HMC '23) and Joel Tan-Aristy (HMC '23). In this lab, 
+The creators of this to-do list app are Aditya Bhargava (HMC '23) and Joel Tan-Aristy (HMC '24). In this lab, 
 we designed and implemented a to-do list using React and JavaScript. What makes our to-do list different
 from other to-do lists is that we have an option for showing the tasks yet to complete, and we have folders to organize
-our tasks. 
+our tasks.
+
 ## Tasks to Complete
 Showing only uncompleted items was a difficult constraint as there is no standard icon or button for displaying
 uncompleted items. We decided to keep the design simple and include text in a button. The different phrases we 
 considered were "Show uncompleted items", "Tasks to Consider", "Unfinished tasks", and "Tasks to Complete." 
 We conducted ten user tests to determine the phrase and eight out of the ten participants said that the phrase 
 "Tasks to Complete" was the most intuitive expression for showing only uncompleted items. The flow of the tasks to
-complete button can be found [here](taskstocomplete.md). Implementing the Tasks to Complete button and functionality
-was quite difficult as we had to utilize a useState to keep track of the "Tasks to Complete" and "All Tasks" button
-and pass the information to the Tasks component, so we hide the completed items.
+complete button can be found [here](taskstocomplete.md). Implementing the "Tasks to Complete" button and functionality
+was quite difficult as we had to utilize a useState to keep track of the "Tasks to Complete" and "All Tasks" button .
+Additionally, we had to pass the information to the Tasks component, so we hide the completed items.
+
 ## Delete All Completed Tasks
+We implemented the button [here](taskstocomplete.md) so that users could permanently remove all their completed tasks. 
+In order to do this, when the button is clicked we iterate through all our tasks, filtering out the tasks that have been marked 
+completed. The 'delete all completed' button appeared obvious to the users during user testing, which is why we decided 
+to keep the UI simple with just an icon and no text. Compared to the other features in the design, implementing the this 
+button was straightforward. The general flow is [here](deleteAllTasks.md).
 
-## Editing a Task/Folder
+## Editing a Task/Folder Name
+We decided that it would be best for the users to keep the UI for editing task and folder names consistent. We did this
+by keeping the same edit button [here](editButton.png). The user would click on the edit button and the folder or task name would
+convert to a form, allowing them to edit the name. In order to do this, we had to utilize a useState for when the edit 
+button had been clicked, and if it had been clicked the task or folder description div would be replaced with a form.
+We decided that when the form appears after the edit button is pressed, the current description for the task or folder 
+should immediately be there. That way, if the users simply wanted to add or shorten their original description, they 
+would not need to retype anything. We also decided to change the background color of the text during the edit mode, to 
+alert the user that the specific text is still in edit mode.When the user is satisfied with their edits, they can 
+repress the edit button and the changes would be saved. Additionally, if a task was marked completed, the user could 
+still edit its description and the task would stay completed. The flow to editing tasks can be seen [here](editTask.md).
 
-## Adding a List Item to a Folder
+## Adding a New Task
+Our first design of adding a new task required us to enter a new window where we choose between adding a new folder
+and a new task once we click the plus sign at the bottom of the app. We found this to be inconvenient to the user and
+quite hard to implement as we had to create three more component and three more CSS files. 
+Our old design can be found [here](oldaddtask.md). Our design now has a plus button near the folder name which adds a 
+new task to the specified folder. The flow of adding a new task can be found [here](newaddtask.md). 
+In future labs, we hope to make the new task editable so the user can instantly edit their new folder, 
+so they don't have to click the edit button when they want to rename their new folder. Implementing this function was 
+somewhat straightforward as we used a nested mapping function and spread syntax to append a task to the `tasks` array 
+in the folder element. 
 
 ## Expanding and Collapsing a Folder
 The part of the design that we are most proud of are the dropdown icons as it lets users retract folders that they are 
 not using. We initially were considering to have the up and down chevron icon but after consulting with Prof. Rhodes we 
 decided to utilize the right and down [chevron icon](upvsdown.md). The flow of the expanding and collapsing a folder can 
 be found [here](expandingandcollapsing.md). After completing user testing, we noticed that nine out of the ten users 
-easily understood the function of the Chevrons and was able to expand the task without any instructions.
-
-[Scrolling Icon Issue]
+easily understood the function of the Chevrons and was able to expand the task without any instructions. Whenever a user 
+added too many tasks or folders to be seen all at once, we implemented the scrolling feature so that the user can adjust 
+to see the desired folders or tasks. We considered also making the taskbar and 'new folder' button also included in the 
+scroll. Ultimately we determined that if the user adds a significant amount of tasks or folders, the 'delete all 
+completed tasks,' 'task to complete,' and 'new folders' buttons would be too difficult to access considering how 
+important they are. So we decided on keeping the taskbar and bottom bar (which contains the 'new folder' button) 
+un-scrollable and always visible to the user. We also decided on getting rid of the scrollbar. Upon user testing, 
+we determined that the scroll functionality was obvious and unnecessary. Additionally, the scroll bar would cause bugs 
+in the Chrome browser. The flow can be seen [here](scrollbar.md).
 
 ## Marking a Task Complete
 We believe the line through the task is standard convention for marking items complete. Alternative designs were 
@@ -42,8 +75,29 @@ function, we utilized a nested mapping and the spread syntax to "alter" a given 
 complete can be found [here](markingataskcomplete.md). 
 
 ## Adding a New Folder
+Our first design of adding a new folder required us to enter a new window where we choose between adding a new folder
+and a new task once we click the plus sign at the bottom of the app. We found this to be inconvenient to the user and
+quite hard to implement as we had to create three new components and three CSS files. Our old design can be found 
+[here](oldaddfodler.md). Our design now has a New Folder button which adds a new folder to the bottom of the to do list 
+with the name "New Folder". The flow of adding a new folder can be found [here](newaddfolder.md). In future labs, we hope to make the new folder editable so the user can instantly edit their new folder, so they don't 
+have to click the edit button when they want to rename their new folder. Nine out of the ten users agreed with this claim as we noticed that nine users attempted to edit the name of the
+new folder by going straight to the title of the folder.  
 
 ## Difficulties
+### Iterating through Tasks
+Because we had folders, our data was stored in a list which contained folders as elements, and each folder contained a 
+list of its corresponding task. Because we had features like deleting all completed tasks, we needed to iterate through 
+every task in the list. This was rather difficult at first, because the spread syntax was unfamiliar to both of us. 
+Thus, we were originally unsure on how we would iterate through our list of lists, which was required for multiple 
+features.
+
+### Editing Tasks and Folder Descriptions
+Our approach to achieve this was when the edit button was clicked, convert the corresponding text to a form. When the 
+form was submitted, store the input as the new folder or task description. This caused a lot of difficulty, as we were 
+unsure whether to use state or simply props. This was due to the fact that when a folder or task was edited, we wanted 
+the starting text or value of the form to be the original description of the task or folder. Thus, we experienced
+difficulty on how to present the current description of the item being edited. 
+
 ### Retrieving icons and aligning them in a button
 We found searching for checkmark, trash can, notepad, and plus icons to be quite difficult as we had to upload and 
 resize the images from Safari. Additionally, we faced the obstacle of matching the color of the icons with our background
@@ -61,55 +115,6 @@ as we want our to-do list to be refreshing, positive, and peaceful. We attempted
 font Arial, sans-serif with the color of text and buttons being black. 
 Our original font was [Verdana, sans-serif](verdana.md) but six users said they would prefer another font to 
 maintain our goal of making a to-do list that is clean and energetic.
-
-
-#LAB 1 DESIGN DOCUMENT
-## Adding Items to Our List
-Since we added folders to our to-do list, we needed to develop a design that supported creating a new folder and adding 
-a new task each folder. Additionally, creating a folder also needed to be straight forward. In order to achieve 
-both these task, we decided to add a "plus" button at the bottom of the main screen that when clicked, would generate a 
-new page displaying "New Task" and "New Folder" buttons. This allowed for the main screen to be less cluttered. Whenever
-the user wanted to add something, whether it be a task or folder, they could just press the "plus" button. After that, 
-they could decide between adding a [task or folder](folder.md) by deciding which button to press. Then, they could enter 
-the name they want, as well as which folder if it is a task. This process allows for the main screen to stay unclutter 
-while allowing users to have completely flexibility. We also considered having an extra task appear at the end of each 
-folder, in which users could type in their new task and enter it. This would result in more complication in the main 
-page, which is why we did not use it. The process of adding new tasks and folders underwent user testing, in which we 
-received feedback on the size and location of the buttons. Some difficulties in this implementation was keeping the 
-design consistent with the main page, as well as aligning all the components.
-
-## Marking Items Complete
-We believe the line through the task is standard convention for marking items complete.
-Alternative designs were including a checkmark next to the completed item, and completely removing the
-item from the to-do list. The drawbacks of including a checkmark next to the completed item was that the
-use of numerous buttons next to the task would be confusing and distracting. Additionally, completely removing
-the item would not allow users to revert their change as they may have realized that their task is not actually complete.
-We conducted one user test for making items complete. The user stated that the thickness of the line was too bold,
-so we decided to reduce the `text-decoration-thickness` from 3px to 2px. The difference can be seen [here](linethrough.md). 
-One challenge we faced was indicating that a task has been completed in the html code. 
-We overcame this obstacle by adding a "completed" class to every item and then decorating the task accordingly in the 
-`main.css` file.
-
-## Renaming Items
-We believe the "pencil/notepad" icon is standard convention for renaming items.
-Alternative designs were not including an icon and just making the item editable when you click the task. 
-The drawbacks of this design is that users who accidentally click the task item may edit their task and this is not 
-ideal for their experience. We hope to expand this idea to JavaScript and React as hard coding text in HTML is not efficient
-and consistent with clean code. 
-
-## Show only uncompleted items
-Showing only uncompleted items was a difficult constraint as there is no standard icon or button for displaying 
-uncompleted items. We decided to keep the design simple and include text in a button. The different phrases we considered
-were "Show uncompleted items", "Tasks to Consider", and "Unfinished tasks". We conducted five user tests to determine
-the phrase and four out of the five participants said that the phrase "Unfinished tasks" was the most intuitive expression
-for showing only uncompleted items. 
-
-## Deleting all completed items
-We believe the trash can is standard convention for deleting items (used on macOS). One challenge we faced was
-determining the location of the trash icon bin. We initially wanted to place it at the end of the list so users can "toss"
-out their tasks once they finish, but we decided to relocate the icon to the top so we can maintain symmetry in the task bar.
-Additionally, a symmetric taskbar gives our to-do list an orderly look and organized perspective. 
-
 
 
 
