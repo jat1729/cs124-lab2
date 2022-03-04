@@ -37,7 +37,7 @@ function Folder(props) {
                         <input id={"edit-folder-input"}type={"text"} value={props.folder.folderName}
                                onChange={(e) => handleChangeEditBtn(e.target.value)}/>
                     </div>:
-                    <div>{props.folder.folderName}</div>
+                    <div className={"folderName"}>{props.folder.folderName}</div>
                 }
                 <button className={"edit-folder-btn"} onClick={handleClickEditBtn}>
                     <i className="fa-solid fa-pen-to-square"></i>

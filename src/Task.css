@@ -10,6 +10,12 @@
     grid-template-columns: 1fr 30px 30px;
 }
 
+/* Styling for task name*/
+.taskName {
+    max-width: 227px;
+    word-break: break-all;
+}
+
 /* line-through for completed task */
 .completed{
     text-decoration:line-through;

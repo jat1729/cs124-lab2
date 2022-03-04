@@ -12,6 +12,12 @@
     grid-template-columns: 1fr  30px 30px 30px;
 }
 
+/* Styling for the folder name text */
+.folderName {
+    max-width: 220px;
+    word-break: break-all;
+}
+
 /* Styling of form when we edit a folder */
 #edit-folder-input {
     font-size: 28px;

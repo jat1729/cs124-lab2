@@ -26,7 +26,7 @@ function Task(props) {
                     <input id={"edit-task-input"}type={"text"} value={props.task.taskName}
                             onChange={(e) => handleChangeEditBtn(e.target.value)}/>
                 </div>:
-                <div className={props.task.completed ? "completed" : ""}>
+                <div className={props.task.completed ? "completed taskName" : "taskName"}>
                     {props.task.taskName}
                 </div>
             }
