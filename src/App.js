@@ -1,10 +1,27 @@
+import './App.css';
 import Taskbar from "./Taskbar";
 import Folders from "./Folders";
 import BottomBar from "./BottomBar";
 import {useState} from 'react';
 import React from "react";
-import './App.css';
+
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
+
+import {useCollectionData} from "react-firebase-hooks/firestore";
+import {initializeApp} from "firebase/app";
+import {serverTimestamp, collection, deleteDoc, doc, getFirestore, query, setDoc} from "firebase/firestore";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDTPQgL3CbUE4NYU0N3qgFDG-ASjbjMvyY",
+    authDomain: "cs124-lab3-60767.firebaseapp.com",
+    projectId: "cs124-lab3-60767",
+    storageBucket: "cs124-lab3-60767.appspot.com",
+    messagingSenderId: "113742232012",
+    appId: "1:113742232012:web:46620a837cd7f2bbeb0569"
+};
+const firebaseApp=initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
+const collectionName = "folders"
 
 // array of folders with tasks in each folder
 const initialData = [
@@ -46,6 +63,10 @@ const initialData = [
 
 
 function App() {
+    // query for folders collection
+    const foldersQuery = query(collection(db, collectionName));
+    // retrieving the list of folders
+    const [folders, loading, error] = useCollectionData(foldersQuery);
     // instantiating and updating the data
     const [data, setData] = useState(initialData);
     // status of the "Tasks to complete" button
@@ -86,7 +107,7 @@ function App() {
     // Calling the three different components for our JSX
     return <div id={'main-container'}>
         <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete} DeleteCompletedTasks={deleteCompletedTasks}/>
-        <Folders data={data} setFolderProperty={setFolderProperty} setTaskProperty={setTaskProperty}
+        <Folders data={folders} setFolderProperty={setFolderProperty} setTaskProperty={setTaskProperty}
                  hideComplete={hideComplete} addNewTask={addNewTask}/>
         <BottomBar addNewFolder={addNewFolder}/>
     </div>
