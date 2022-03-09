@@ -9,7 +9,7 @@ import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {initializeApp} from "firebase/app";
-import {serverTimestamp, collection, deleteDoc, doc, getFirestore, query, setDoc} from "firebase/firestore";
+import {doc, setDoc, collection, getFirestore, query} from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDTPQgL3CbUE4NYU0N3qgFDG-ASjbjMvyY",
@@ -22,6 +22,13 @@ const firebaseConfig = {
 const firebaseApp=initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
 const collectionName = "folders"
+
+const folder1Id = generateUniqueID()
+setDoc(doc(db, "folders",folder1Id), {
+    id: folder1Id,
+    folderName: "WORK",
+    tasks: []
+})
 
 // array of folders with tasks in each folder
 const initialData = [
@@ -67,6 +74,7 @@ function App() {
     const foldersQuery = query(collection(db, collectionName));
     // retrieving the list of folders
     const [folders, loading, error] = useCollectionData(foldersQuery);
+    console.log(folders);
     // instantiating and updating the data
     const [data, setData] = useState(initialData);
     // status of the "Tasks to complete" button
@@ -104,6 +112,9 @@ function App() {
         setData(data.map(folder => ({...folder, tasks: folder.tasks.filter(task => !task.completed)})));
     }
 
+    if (loading) {
+        return "loading..";
+    }
     // Calling the three different components for our JSX
     return <div id={'main-container'}>
         <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete} DeleteCompletedTasks={deleteCompletedTasks}/>

@@ -1,7 +1,7 @@
 import Task from './Task';
 import './Folder.css';
 import {useState} from "react";
-const subCollectionName = "tasks"
+// const subCollectionName = "tasks"
 
 function Folder(props) {
     // used for determining the status of editing the tasks
