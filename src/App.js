@@ -7,9 +7,10 @@ import React from "react";
 
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 
+import { firestore } from "nativescript-plugin-firebase";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {initializeApp} from "firebase/app";
-import {doc, setDoc, collection, getFirestore, query} from "firebase/firestore";
+import {doc, setDoc, addDoc, collection, getFirestore, query} from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDTPQgL3CbUE4NYU0N3qgFDG-ASjbjMvyY",
@@ -22,12 +23,17 @@ const firebaseConfig = {
 const firebaseApp=initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
 const collectionName = "folders"
+const subCollectionName = "tasks"
 
 const folder1Id = generateUniqueID()
-setDoc(doc(db, "folders",folder1Id), {
+setDoc(doc(db, collectionName, folder1Id), {
     id: folder1Id,
     folderName: "WORK",
-    tasks: []
+    tasks: [{
+        id: 4,
+        taskName: "Go To The Bank",
+        completed: false
+    }]
 })
 
 // array of folders with tasks in each folder
@@ -74,7 +80,6 @@ function App() {
     const foldersQuery = query(collection(db, collectionName));
     // retrieving the list of folders
     const [folders, loading, error] = useCollectionData(foldersQuery);
-    console.log(folders);
     // instantiating and updating the data
     const [data, setData] = useState(initialData);
     // status of the "Tasks to complete" button
@@ -96,15 +101,38 @@ function App() {
 
     // adding a new task to our initial data
     function addNewTask(folderId) {
-        setData(data.map(f => (f.id === folderId) ?
-            {...f, tasks: [...f.tasks,
-                {id: generateUniqueID(), taskName:"New Task", completed: false}]
-        } : f));
+        // setData(data.map(f => (f.id === folderId) ?
+        //     {...f, tasks: [...f.tasks,
+        //         {id: generateUniqueID(), taskName:"New Task", completed: false}]
+        // } : f));
+        const uniqueId = generateUniqueID();
+        const firebase = require("nativescript-plugin-firebase/app");
+        firebase.firestore.collection(collectionName).doc(folderId).collection(subCollectionName).add({
+            id: uniqueId,
+            taskName: "New Task",
+            completed: false});
+        // db.get(collectionName).doc(folderId).collection(subCollectionName).add({
+        //     id: uniqueId,
+        //     taskName: "New Task",
+        //     completed: false});
+        // addDoc(collection(db, collectionName, folderId, subCollectionName),
+        //     {
+        //     id: uniqueId,
+        //     taskName: "New Task",
+        //     completed: false
+        // });
     }
 
     // adding a new folder to our initial data
     function addNewFolder() {
-        setData(data.concat({id:generateUniqueID(), folderName: "New Folder", tasks: [] }))
+        const uniqueId = generateUniqueID();
+        setDoc(doc(db, collectionName, uniqueId),
+            {
+                id: uniqueId,
+                folderName: "New Folder",
+                tasks: [],
+            });
+        // setData(data.concat({id:generateUniqueID(), folderName: "New Folder", tasks: [] }))
     }
 
     // deleting completed tasks from our initial data
