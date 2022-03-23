@@ -7,7 +7,6 @@ import React from "react";
 
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 
-import { firestore } from "nativescript-plugin-firebase";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {initializeApp} from "firebase/app";
 import {doc, setDoc, addDoc, collection, getFirestore, query} from "firebase/firestore";
@@ -20,7 +19,11 @@ const firebaseConfig = {
     messagingSenderId: "113742232012",
     appId: "1:113742232012:web:46620a837cd7f2bbeb0569"
 };
+
+// initialize app
 const firebaseApp=initializeApp(firebaseConfig);
+
+// initialize database
 const db = getFirestore(firebaseApp);
 const collectionName = "folders"
 const subCollectionName = "tasks"
@@ -28,13 +31,13 @@ const subCollectionName = "tasks"
 const folder1Id = generateUniqueID()
 setDoc(doc(db, collectionName, folder1Id), {
     id: folder1Id,
-    folderName: "WORK",
+    folderName: "Work",
     tasks: [{
         id: 4,
         taskName: "Go To The Bank",
         completed: false
     }]
-})
+}).then()
 
 // array of folders with tasks in each folder
 const initialData = [
@@ -99,39 +102,29 @@ function App() {
             {...f,[property]: value}:f));
     }
 
-    // adding a new task to our initial data
+    // adding a new task
     function addNewTask(folderId) {
         // setData(data.map(f => (f.id === folderId) ?
         //     {...f, tasks: [...f.tasks,
         //         {id: generateUniqueID(), taskName:"New Task", completed: false}]
         // } : f));
         const uniqueId = generateUniqueID();
-        const firebase = require("nativescript-plugin-firebase/app");
-        firebase.firestore.collection(collectionName).doc(folderId).collection(subCollectionName).add({
+        const folderDoc = doc(db, collectionName, folderId)
+        setDoc(doc(collection(folderDoc, "tasks"),uniqueId),{
             id: uniqueId,
             taskName: "New Task",
-            completed: false});
-        // db.get(collectionName).doc(folderId).collection(subCollectionName).add({
-        //     id: uniqueId,
-        //     taskName: "New Task",
-        //     completed: false});
-        // addDoc(collection(db, collectionName, folderId, subCollectionName),
-        //     {
-        //     id: uniqueId,
-        //     taskName: "New Task",
-        //     completed: false
-        // });
+            completed: false
+        }).then();
     }
 
-    // adding a new folder to our initial data
+    // adding a new folder
     function addNewFolder() {
         const uniqueId = generateUniqueID();
         setDoc(doc(db, collectionName, uniqueId),
             {
                 id: uniqueId,
                 folderName: "New Folder",
-                tasks: [],
-            });
+            }).then();
         // setData(data.concat({id:generateUniqueID(), folderName: "New Folder", tasks: [] }))
     }
 
@@ -146,8 +139,8 @@ function App() {
     // Calling the three different components for our JSX
     return <div id={'main-container'}>
         <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete} DeleteCompletedTasks={deleteCompletedTasks}/>
-        <Folders data={folders} setFolderProperty={setFolderProperty} setTaskProperty={setTaskProperty}
-                 hideComplete={hideComplete} addNewTask={addNewTask}/>
+        {(!error && !loading)?<Folders data={folders} setFolderProperty={setFolderProperty} setTaskProperty={setTaskProperty}
+                 hideComplete={hideComplete} addNewTask={addNewTask}/>:null}
         <BottomBar addNewFolder={addNewFolder}/>
     </div>
 }
