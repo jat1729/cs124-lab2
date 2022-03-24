@@ -18,7 +18,7 @@ function Folder(props) {
     if (props.folder.sort === "ascending") {
         const tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"), orderBy("priority"));
     } else if (props.folder.sort === "descending") {
-        const tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"), orderBy("priority", "desc"));
+        const tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"), orderBy("name"));
     }
     const [tasks, loading, error] = useCollectionData(tasksQuery);
 
