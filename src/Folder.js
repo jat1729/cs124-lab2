@@ -74,7 +74,7 @@ function Folder(props) {
                     <ul className={"task-container"}>
                     {tasks.map((task) => !(props.hideComplete && task.completed) ?
                         <Task key={task.id} task={task} folder={props.folder} setTaskProperty={props.setTaskProperty}
-                              setFolderProperty={props.setFolderProperty}/>: null)}
+                              setFolderProperty={props.setFolderProperty} priority={task.priority}/>: null)}
                 </ul> : null}
             </li>
         </ul>
