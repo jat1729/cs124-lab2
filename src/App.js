@@ -79,6 +79,7 @@ function App() {
                 id: uniqueId,
                 created: serverTimestamp(),
                 folderName: "New Folder",
+                sort: "unsorted"
             }).then();
     }
 

@@ -1,7 +1,7 @@
 import Task from './Task';
 import './Folder.css';
 import {useState} from "react";
-import {collection, query} from "firebase/firestore";
+import {collection, query, orderBy} from "firebase/firestore";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 
 
@@ -11,8 +11,15 @@ function Folder(props) {
     // used to determine the direction of chevron button and whether tasks are shown
     const [showTasks, setShowTasks] = useState(true);
     // query for tasks collection
-    const tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"));
     // retrieving the list of tasks
+    // const tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"), orderBy("priority", "desc"));
+    // const tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"), orderBy("taskName"));
+    const tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"));
+    if (props.folder.sort === "ascending") {
+        const tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"), orderBy("priority"));
+    } else if (props.folder.sort === "descending") {
+        const tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"), orderBy("priority", "desc"));
+    }
     const [tasks, loading, error] = useCollectionData(tasksQuery);
 
     props.storeTasks(props.folder.id, tasks);
@@ -38,6 +45,25 @@ function Folder(props) {
         props.setFolderProperty(props.folder.id, "folderName", newFolderName)
     }
 
+    function handleChangePriorityBtn() {
+        if (props.folder.sort === "ascending") {
+            props.setFolderProperty(props.folder.id, "sort", "descending");
+        } else if (props.folder.sort === "descending") {
+            props.setFolderProperty(props.folder.id, "sort", "unsorted");
+        } else {
+            props.setFolderProperty(props.folder.id, "sort", "ascending");
+        }
+    }
+
+    let sort_btn;
+    if (props.folder.sort === "ascending") {
+        sort_btn = <button className={"sort-folder-btn"} onClick={handleChangePriorityBtn}><i className="fa-solid fa-arrow-up-short-wide"></i></button>;
+    } else if (props.folder.sort === "descending") {
+        sort_btn = <button className={"sort-folder-btn"} onClick={handleChangePriorityBtn}><i className="fa-solid fa-align-justify"></i></button>;
+    } else {
+        sort_btn = <button className={"sort-folder-btn"} onClick={handleChangePriorityBtn}><i className="fa-solid fa-arrow-down-wide-short"></i></button>;
+    }
+
     // Error and Loading check
     if (loading) {
         return "loading..";
@@ -49,6 +75,7 @@ function Folder(props) {
     return <div>
         <ul>
             <li className={"folder"}>
+                {sort_btn}
                 {editFolder ?
                     <div>
                         <input id={"edit-folder-input"}type={"text"} value={props.folder.folderName}

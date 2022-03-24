@@ -6,7 +6,7 @@
     color: black;
     grid-column: 1/span 2;
     display: grid;
-    grid-template-columns: 23px 1fr 30px 30px;
+    grid-template-columns: 30px 1fr 30px 30px;
 }
 
 /* Styling for task name*/
@@ -38,7 +38,7 @@
 /* Styling of form when we edit a task */
 #edit-task-input {
     font-size: 20px;
-    width: 226px;
+    width: 200px;
     height: 23px;
     grid-column: 2/span 1;
     background-color: #5AB9EA;
@@ -68,7 +68,7 @@
     border: none;
     background-color: #84CEEB;
     font-size: 20px;
-    padding-left: 4px;
+    padding-left: 6px;
     padding-top: 0px;
     /*margin-left: auto;*/
 }
