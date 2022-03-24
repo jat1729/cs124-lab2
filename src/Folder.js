@@ -1,13 +1,20 @@
 import Task from './Task';
 import './Folder.css';
 import {useState} from "react";
-// const subCollectionName = "tasks"
+import {collection, query} from "firebase/firestore";
+import {useCollectionData} from "react-firebase-hooks/firestore";
+
 
 function Folder(props) {
     // used for determining the status of editing the tasks
     const [editFolder,setEditFolder] = useState(false);
     // used to determine the direction of chevron button and whether tasks are shown
     const [showTasks, setShowTasks] = useState(true);
+    // query for tasks collection
+    const tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"));
+    // retrieving the list of tasks
+    const [tasks, loading, error] = useCollectionData(tasksQuery);
+
 
     // Adding a new task
     function addNewTask() {
@@ -30,6 +37,14 @@ function Folder(props) {
         props.setFolderProperty(props.folder.id, "folderName", newFolderName)
     }
 
+    // Error and Loading check
+    if (loading) {
+        return "loading..";
+    }
+
+    if (error) {
+        return "error..";
+    }
     return <div>
         <ul>
             <li className={"folder"}>
@@ -46,7 +61,7 @@ function Folder(props) {
                 <button className={"new-task"} onClick={addNewTask}>
                     <i className="fa-solid fa-plus"></i>
                 </button>
-                {(showTasks && (props.folder.tasks.length !== 0)) ?
+                {(showTasks && (tasks.length !== 0)) ?
                 <button className="drop-down-btn" onClick={handleClickChevronBtn}>
                     <i className="fa-solid fa-chevron-down"></i>
                 </button>:
@@ -54,9 +69,9 @@ function Folder(props) {
                         <i className="fa-solid fa-chevron-right"></i>
                     </button>
                 }
-                {(showTasks && (props.folder.tasks.length !== 0)) ?
+                {(showTasks && (tasks.length !== 0)) ?
                     <ul className={"task-container"}>
-                    {props.folder.tasks.map((task) => !(props.hideComplete && task.completed) ?
+                    {tasks.map((task) => !(props.hideComplete && task.completed) ?
                         <Task key={task.id} task={task} folder={props.folder} setTaskProperty={props.setTaskProperty}
                               setFolderProperty={props.setFolderProperty}/>: null)}
                 </ul> : null}

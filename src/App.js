@@ -9,7 +9,8 @@ import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {initializeApp} from "firebase/app";
-import {doc, setDoc, addDoc, collection, getFirestore, query} from "firebase/firestore";
+import {doc, setDoc, updateDoc, deleteDoc, collection, getFirestore, query, serverTimestamp} from "firebase/firestore";
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyDTPQgL3CbUE4NYU0N3qgFDG-ASjbjMvyY",
@@ -28,90 +29,37 @@ const db = getFirestore(firebaseApp);
 const collectionName = "folders"
 const subCollectionName = "tasks"
 
-const folder1Id = generateUniqueID()
-setDoc(doc(db, collectionName, folder1Id), {
-    id: folder1Id,
-    folderName: "Work",
-    tasks: [{
-        id: 4,
-        taskName: "Go To The Bank",
-        completed: false
-    }]
-}).then()
-
-// array of folders with tasks in each folder
-const initialData = [
-    {
-        id: 1,
-        folderName: "Work",
-        tasks: [{
-            id: 4,
-            taskName: "Go To The Bank",
-            completed: false
-        }]
-    },
-    {
-        id: 2,
-        folderName: "Personal",
-        tasks: [{
-            id: 5,
-            taskName: "Call Mom",
-            completed: false
-        }]
-    },
-    {
-        id: 3,
-        folderName: "Academic",
-        tasks: [{
-            id: 6,
-            taskName: "Do CS 124",
-            completed: false
-        },
-            {
-                id: 7,
-                taskName: "Do CS 140",
-                completed: false
-            }
-        ]
-    }
-]
-
-
-
 function App() {
     // query for folders collection
     const foldersQuery = query(collection(db, collectionName));
     // retrieving the list of folders
     const [folders, loading, error] = useCollectionData(foldersQuery);
-    // instantiating and updating the data
-    const [data, setData] = useState(initialData);
     // status of the "Tasks to complete" button
     const [hideComplete, setHideComplete] = useState(false);
 
     // updating a field attribute of a task in initial data
     function setTaskProperty(folderId, taskId, property, value) {
-        setData(data.map(f => (f.id === folderId) ?
-            {...f, tasks: f.tasks.map(t => t.id === taskId ?
-                    {...t, [property]: value}: t)
-            } : f));
+        const folderDoc = doc(db, collectionName, folderId);
+        console.log(folderId)
+        updateDoc(doc(collection(folderDoc, "tasks"), taskId), {
+            [property]: value
+        }).then();
     }
 
     // updating a field attribute of a folder in initial data
     function setFolderProperty(folderId, property, value) {
-        setData(data.map(f => (f.id === folderId) ?
-            {...f,[property]: value}:f));
+        updateDoc(doc(db, collectionName, folderId), {
+            [property]: value
+        });
     }
 
     // adding a new task
     function addNewTask(folderId) {
-        // setData(data.map(f => (f.id === folderId) ?
-        //     {...f, tasks: [...f.tasks,
-        //         {id: generateUniqueID(), taskName:"New Task", completed: false}]
-        // } : f));
         const uniqueId = generateUniqueID();
-        const folderDoc = doc(db, collectionName, folderId)
-        setDoc(doc(collection(folderDoc, "tasks"),uniqueId),{
+        const folderDoc = doc(db, collectionName, folderId);
+        setDoc(doc(collection(folderDoc, subCollectionName), uniqueId), {
             id: uniqueId,
+            created: serverTimestamp(),
             taskName: "New Task",
             completed: false
         }).then();
@@ -123,26 +71,33 @@ function App() {
         setDoc(doc(db, collectionName, uniqueId),
             {
                 id: uniqueId,
+                created: serverTimestamp(),
                 folderName: "New Folder",
             }).then();
-        // setData(data.concat({id:generateUniqueID(), folderName: "New Folder", tasks: [] }))
     }
 
     // deleting completed tasks from our initial data
     function deleteCompletedTasks() {
-        setData(data.map(folder => ({...folder, tasks: folder.tasks.filter(task => !task.completed)})));
+        get()
+        folders.map(folder => Firebase.firestore().collection(db,collectionName, folder.id, subCollectionName).get().data().forEach(task => task.completed ? deleteDoc(doc(db, collectionName, folder.id, task, task.id)) : null));
     }
 
+    // Error and Loading check
     if (loading) {
-        return "loading..";
+        return "loading..."
     }
-    // Calling the three different components for our JSX
-    return <div id={'main-container'}>
-        <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete} DeleteCompletedTasks={deleteCompletedTasks}/>
-        {(!error && !loading)?<Folders data={folders} setFolderProperty={setFolderProperty} setTaskProperty={setTaskProperty}
-                 hideComplete={hideComplete} addNewTask={addNewTask}/>:null}
-        <BottomBar addNewFolder={addNewFolder}/>
-    </div>
+    if (error) {
+        return "error..."
+    }
+
+        // Calling the three different components for our JSX
+        return <div id={'main-container'}>
+            <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete}
+                     DeleteCompletedTasks={deleteCompletedTasks}/>
+            <Folders data={folders} db={db} setFolderProperty={setFolderProperty} setTaskProperty={setTaskProperty}
+                         hideComplete={hideComplete} addNewTask={addNewTask}/>
+            <BottomBar addNewFolder={addNewFolder}/>
+        </div>
 }
 
 export default App;
