@@ -15,6 +15,7 @@ function Folder(props) {
     // retrieving the list of tasks
     const [tasks, loading, error] = useCollectionData(tasksQuery);
 
+    props.storeTasks(props.folder.id, tasks);
 
     // Adding a new task
     function addNewTask() {

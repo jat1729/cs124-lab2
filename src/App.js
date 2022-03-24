@@ -10,6 +10,7 @@ import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {initializeApp} from "firebase/app";
 import {doc, setDoc, updateDoc, deleteDoc, collection, getFirestore, query, serverTimestamp} from "firebase/firestore";
+import task from "./Task";
 
 
 const firebaseConfig = {
@@ -37,10 +38,15 @@ function App() {
     // status of the "Tasks to complete" button
     const [hideComplete, setHideComplete] = useState(false);
 
+    const storedTasks = {};
+
+    function storeTasks(folderId, tasks) {
+        storedTasks[folderId] = tasks;
+    }
+
     // updating a field attribute of a task in initial data
     function setTaskProperty(folderId, taskId, property, value) {
         const folderDoc = doc(db, collectionName, folderId);
-        console.log(folderId)
         updateDoc(doc(collection(folderDoc, "tasks"), taskId), {
             [property]: value
         }).then();
@@ -78,8 +84,16 @@ function App() {
 
     // deleting completed tasks from our initial data
     function deleteCompletedTasks() {
-        get()
-        folders.map(folder => Firebase.firestore().collection(db,collectionName, folder.id, subCollectionName).get().data().forEach(task => task.completed ? deleteDoc(doc(db, collectionName, folder.id, task, task.id)) : null));
+        // const foldersQuery = db.collection("Folders")
+        // foldersQuery.get().then((querySnapshot) => {)
+        // folders.map(folder => db.collection(db,collectionName, folder.id, subCollectionName).get().data().
+        // forEach(task => task.completed ? deleteDoc(doc(db, collectionName, folder.id, task, task.id)) : null));
+        // storedTasks.map(folderId => storedTasks[folderId].forEach(task => (task.completed && deleteDoc(doc(db, collectionName, folderId, subCollectionName, task.id)))))
+        // storedTasks.forEach(folderId => storedTasks[folderId].forEach(task => (console.log(task.completed))))
+        for (const folderId in storedTasks){
+            storedTasks[folderId].forEach(task => task.completed && deleteDoc(doc(db,collectionName,folderId,subCollectionName,task.id)))
+        }
+        console.log(storedTasks)
     }
 
     // Error and Loading check
@@ -95,7 +109,7 @@ function App() {
             <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete}
                      DeleteCompletedTasks={deleteCompletedTasks}/>
             <Folders data={folders} db={db} setFolderProperty={setFolderProperty} setTaskProperty={setTaskProperty}
-                         hideComplete={hideComplete} addNewTask={addNewTask}/>
+                         hideComplete={hideComplete} addNewTask={addNewTask} storeTasks={storeTasks}/>
             <BottomBar addNewFolder={addNewFolder}/>
         </div>
 }
