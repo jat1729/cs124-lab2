@@ -12,13 +12,11 @@ function Folder(props) {
     const [showTasks, setShowTasks] = useState(true);
     // query for tasks collection
     // retrieving the list of tasks
-    // const tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"), orderBy("priority", "desc"));
-    // const tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"), orderBy("taskName"));
-    const tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"));
+    let tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"));
     if (props.folder.sort === "ascending") {
-        const tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"), orderBy("priority"));
+        tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"), orderBy("priority"));
     } else if (props.folder.sort === "descending") {
-        const tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"), orderBy("name"));
+        tasksQuery = query(collection(props.db, "folders",props.folder.id,"tasks"), orderBy("name"));
     }
     const [tasks, loading, error] = useCollectionData(tasksQuery);
 
