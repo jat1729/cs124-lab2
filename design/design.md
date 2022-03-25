@@ -39,4 +39,11 @@ and the forth is reverse alphabetically
 Similar to the priority button, once the user reaches reverse alphabetical order, clicking the sort button will return 
 to default sort.
 
+## User Testing
+We completed user testing for the priority feature of our app and 4 out of 5 users found the exclamation mark to be a
+useful icon for priority. They also found the way of incrementing and decrementing the number of exclamation marks to be
+intuitive and easy to use. Additionally, all the users found the sorting to be helpful and thought the icons were an
+appropriate display of the feature we will sort by. 
+
+
 
