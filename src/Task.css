@@ -4,16 +4,16 @@
     font-size: 20px;
     background-color: #84CEEB;
     color: black;
-    padding-left: 23px;
     grid-column: 1/span 2;
     display: grid;
-    grid-template-columns: 1fr 30px 30px;
+    grid-template-columns: 30px 1fr 30px 30px;
 }
 
 /* Styling for task name*/
 .taskName {
     max-width: 227px;
     word-break: break-all;
+    grid-column: 2/span 1;
 }
 
 /* line-through for completed task */
@@ -25,7 +25,7 @@
 /* Edit/Pencil and Paper button */
 .edit-btn {
     border-radius: 12px;
-    grid-column: 2/span 1;
+    grid-column: 3/span 1;
     border: none;
     background-color: #84CEEB;
 
@@ -38,9 +38,9 @@
 /* Styling of form when we edit a task */
 #edit-task-input {
     font-size: 20px;
-    width: 226px;
+    width: 200px;
     height: 23px;
-    grid-column: 1/span 1;
+    grid-column: 2/span 1;
     background-color: #5AB9EA;
     padding: 0;
     border: none;
@@ -50,7 +50,7 @@
 /* Check mark button */
 .completed-btn {
     border-radius: 12px;
-    grid-column: 3/span 1;
+    grid-column: 4/span 1;
     border: none;
     font-weight: 100;
     background-color: #84CEEB;
@@ -58,5 +58,21 @@
 }
 
 .completed-btn:hover {
+    background-color: #666666;
+}
+
+/* Priority button */
+.priority-btn {
+    border-radius: 12px;
+    grid-column: 1/span 1;
+    border: none;
+    background-color: #84CEEB;
+    font-size: 20px;
+    padding-left: 6px;
+    padding-top: 0px;
+    /*margin-left: auto;*/
+}
+
+.priority-btn:hover {
     background-color: #666666;
 }
