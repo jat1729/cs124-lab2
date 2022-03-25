@@ -28,9 +28,11 @@ added (creation date), with the second being sort by priority.
 ![priority](prioritySort.png)
 
 The third sort option is sort the tasks alphabetically
+
 ![alphabetically](nameSort.png) 
 
-and the forth is reverse alphabetically 
+and the forth is reverse alphabetically
+
 ![alphabeticallly](reverseNameSort.png)
 
 Similar to the priority button, once the user reaches reverse alphabetical order, clicking the sort button will return 
