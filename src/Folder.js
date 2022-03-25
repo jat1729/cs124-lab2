@@ -24,6 +24,7 @@ function Folder(props) {
         tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"), orderBy("taskNameCaseInsesitive", "desc"));
     }
     const [tasks, loading, error] = useCollectionData(tasksQuery);
+    console.log(tasks)
     props.storeTasks(props.folder.id, tasks);
 
     // Adding a new task
