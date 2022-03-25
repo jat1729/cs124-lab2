@@ -8,7 +8,8 @@ our tasks, and different ways to sort your tasks.
 
 ## Prioritizing Tasks
 We enabled a new feature in which users can prioritize or rank tasks. To do this, the user can click on the exclamation 
-mark ![button](priorityBtn.png) to the left of the task and the task will increase in priority. The button will also 
+mark ![button](priorityBtn.png) 
+to the left of the task and the task will increase in priority. The button will also 
 increase accordingly. A task can have a priority of at most 3, in which clicking the button then resets the priority 
 back to 1. 
 
@@ -19,10 +20,10 @@ sorting tasks alphabetically is realizing that Firestore order strings by encodi
 lowercase letters (a distinction that is not useful to the users). To overcome this obstacle, we added a case-insensitive version of the 
 taskName field to each task, so we can order the data by the case-insensitive version rather than the actual name of the task.  
 
-The user can adjust how tasks are sorted in each individual folder using the button to the ![left](unsorted.png) of the
-folder name. The button changes icons depending on the mode it is on. The default is the order in which the tasks are 
-added (creation date), with the second being sort by ![priority](prioritySort.png). The third sort option is sort the 
-tasks ![alphabetically](nameSort.png) and the forth is reverse ![alphabeticallly](reverseNameSort.png). Similar to the 
+The user can adjust how tasks are sorted in each individual folder using the button to the ![left](unsorted.png) 
+of the folder name. The button changes icons depending on the mode it is on. The default is the order in which the tasks are 
+added (creation date), with the second being sort by ![priority](prioritySort.png). 
+The third sort option is sort the tasks ![alphabetically](nameSort.png) and the forth is reverse ![alphabeticallly](reverseNameSort.png). Similar to the 
 priority button, once the user reaches reverse alphabetical order, clicking the sort button will return to default sort.
 
 
