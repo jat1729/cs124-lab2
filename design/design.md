@@ -25,6 +25,7 @@ The user can adjust how tasks are sorted in each individual folder using the but
 
 of the folder name. The button changes icons depending on the mode it is on. The default is the order in which the tasks are 
 added (creation date), with the second being sort by priority.
+
 ![priority](prioritySort.png)
 
 The third sort option is sort the tasks alphabetically
