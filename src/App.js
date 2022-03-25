@@ -66,6 +66,7 @@ function App() {
             id: uniqueId,
             created: serverTimestamp(),
             taskName: "New Task",
+            taskNameCaseInsesitive: "new task",
             completed: false,
             priority: 0
         }).then();

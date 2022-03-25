@@ -17,11 +17,11 @@ function Folder(props) {
         tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"),
             orderBy("priority", "desc"));
     } else if (props.folder.sort === "name") {
-        tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"), orderBy("taskName"));
+        tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"), orderBy("taskNameCaseInsesitive"));
     } else if (props.folder.sort === "unsorted"){
         tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"));
     } else if (props.folder.sort === "reverse-name") {
-        tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"), orderBy("taskName", "desc"));
+        tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"), orderBy("taskNameCaseInsesitive", "desc"));
     }
     const [tasks, loading, error] = useCollectionData(tasksQuery);
     props.storeTasks(props.folder.id, tasks);

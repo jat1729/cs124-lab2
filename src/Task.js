@@ -23,6 +23,7 @@ function Task(props) {
     // used for changing the task name
     function handleChangeEditBtn(newTaskName) {
         props.setTaskProperty(props.folder.id, props.task.id, "taskName", newTaskName);
+        props.setTaskProperty(props.folder.id, props.task.id, "taskNameCaseInsesitive", newTaskName.toLowerCase());
     }
 
     // marking tasks completed
