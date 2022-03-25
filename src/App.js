@@ -85,12 +85,6 @@ function App() {
 
     // deleting completed tasks from our initial data
     function deleteCompletedTasks() {
-        // const foldersQuery = db.collection("Folders")
-        // foldersQuery.get().then((querySnapshot) => {)
-        // folders.map(folder => db.collection(db,collectionName, folder.id, subCollectionName).get().data().
-        // forEach(task => task.completed ? deleteDoc(doc(db, collectionName, folder.id, task, task.id)) : null));
-        // storedTasks.map(folderId => storedTasks[folderId].forEach(task => (task.completed && deleteDoc(doc(db, collectionName, folderId, subCollectionName, task.id)))))
-        // storedTasks.forEach(folderId => storedTasks[folderId].forEach(task => (console.log(task.completed))))
         for (const folderId in storedTasks){
             storedTasks[folderId].forEach(task => task.completed && deleteDoc(doc(db,collectionName,folderId,subCollectionName,task.id)))
         }
