@@ -1,4 +1,4 @@
-/* Categories of items (Personal, Work, Academic) */
+/* Categories of items (Personal, Work, Academic, etc. ) */
 .folder {
     font-family: Arial, sans-serif;
     font-size: 28px;
@@ -14,14 +14,12 @@
 
 /* Styling for the folder name text */
 .folderName {
-    max-width: 220px;
     word-break: break-all;
 }
 
 /* Styling of form when we edit a folder */
 #edit-folder-input {
     font-size: 28px;
-    width: 200px;
     height: 32px;
     background-color: #84CEEB;
     padding: 0;

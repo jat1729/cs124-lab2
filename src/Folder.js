@@ -88,10 +88,8 @@ function Folder(props) {
             <li className={"folder"}>
                 {sort_btn}
                 {editFolder ?
-                    <div>
                         <input id={"edit-folder-input"}type={"text"} value={props.folder.folderName}
-                               onChange={(e) => handleChangeEditBtn(e.target.value)}/>
-                    </div>:
+                               onChange={(e) => handleChangeEditBtn(e.target.value)}/>:
                     <div className={"folderName"}>{props.folder.folderName}</div>
                 }
                 <button className={"edit-folder-btn"} onClick={handleClickEditBtn}>
