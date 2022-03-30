@@ -7,13 +7,15 @@ function Task(props) {
 
     // changes priority level for a task
     function handleClickPriorityBtn() {
+        let priorityLevel = 0
         if (props.priority === 2) {
-            props.setTaskProperty(props.folder.id, props.task.id, "priority", 0);
+            priorityLevel=0
         } else if (props.priority === 0) {
-            props.setTaskProperty(props.folder.id, props.task.id, "priority", 1);
+            priorityLevel=1
         } else {
-            props.setTaskProperty(props.folder.id, props.task.id, "priority", 2);
+            priorityLevel=2
         }
+        props.setTaskProperty(props.folder.id, props.task.id, "priority", priorityLevel);
     }
 
     function handleClickEditBtn() {
@@ -32,13 +34,16 @@ function Task(props) {
     }
 
     let priority_btn;
+    let priority = ''
     if (props.priority === 0) {
-        priority_btn = <button className={"priority-btn"} onClick={handleClickPriorityBtn}>!</button>;
+        priority = '!'
+
     } else if (props.priority === 1) {
-        priority_btn = <button className={"priority-btn"} onClick={handleClickPriorityBtn}>!!</button>;
+        priority = '!!'
     } else {
-        priority_btn =  <button className={"priority-btn"} onClick={handleClickPriorityBtn}>!!!</button>;
+        priority = '!!!'
     }
+    priority_btn = <button className={"priority-btn"} onClick={handleClickPriorityBtn}>{priority}</button>;
 
     return <div>
         <li className={"tasks"}>

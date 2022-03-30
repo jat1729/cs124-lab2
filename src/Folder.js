@@ -12,17 +12,17 @@ function Folder(props) {
     const [showTasks, setShowTasks] = useState(true);
     // query for tasks collection
     // retrieving the list of tasks
-    let tasksQuery = ''
+    let sortOrder = '';
     if (props.folder.sort === "priority") {
-        tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"),
-            orderBy("priority", "desc"));
+        sortOrder = orderBy("priority", "desc");
     } else if (props.folder.sort === "name") {
-        tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"), orderBy("taskNameCaseInsesitive"));
-    } else if (props.folder.sort === "unsorted"){
-        tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"));
+        sortOrder = orderBy("taskNameCaseInsesitive");
+    } else if (props.folder.sort === "unsorted") {
+        sortOrder = orderBy('created')
     } else if (props.folder.sort === "reverse-name") {
-        tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"), orderBy("taskNameCaseInsesitive", "desc"));
+        sortOrder = orderBy("taskNameCaseInsesitive", "desc")
     }
+    let tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"), sortOrder);
     const [tasks, loading, error] = useCollectionData(tasksQuery);
     console.log(tasks)
     props.storeTasks(props.folder.id, tasks);
@@ -49,30 +49,31 @@ function Folder(props) {
     }
 
     function handleChangePriorityBtn() {
+        let sortOrderBy = ''
         if (props.folder.sort === "priority") {
-            props.setFolderProperty(props.folder.id, "sort", "name");
+            sortOrderBy = "name"
         } else if (props.folder.sort === "unsorted") {
-            props.setFolderProperty(props.folder.id, "sort", "priority");
+            sortOrderBy = "priority"
         } else if (props.folder.sort === "name") {
-            props.setFolderProperty(props.folder.id, "sort", "reverse-name");
+            sortOrderBy = "reverse-name"
         } else if (props.folder.sort === "reverse-name") {
-            props.setFolderProperty(props.folder.id, "sort", "unsorted");
+            sortOrderBy = "unsorted"
         }
+        props.setFolderProperty(props.folder.id, "sort", sortOrderBy);
     }
 
     let sort_btn;
+    let sortIcon = ""
     if (props.folder.sort === "priority") {
-        sort_btn = <button className={"sort-folder-btn"} onClick={handleChangePriorityBtn}><i
-            className="fa-solid fa-arrow-up-wide-short"></i></button>;
+        sortIcon = "fa-solid fa-arrow-up-wide-short"
     } else if (props.folder.sort === "name") {
-        sort_btn = <button className={"sort-folder-btn"} onClick={handleChangePriorityBtn}><i className="fa-solid fa-arrow-down-a-z"></i></button>;
+        sortIcon = "fa-solid fa-arrow-down-a-z"
     } else if (props.folder.sort === "reverse-name") {
-        sort_btn = <button className={"sort-folder-btn"} onClick={handleChangePriorityBtn}><i className="fa-solid fa-arrow-up-z-a"></i></button>;
+        sortIcon = "fa-solid fa-arrow-up-z-a"
     } else {
-        console.log("unsorted button");
-        sort_btn = <button className={"sort-folder-btn"} onClick={handleChangePriorityBtn}><i
-            className="fa-solid fa-align-justify"></i></button>;
+        sortIcon = "fa-solid fa-align-justify"
     }
+    sort_btn = <button className={"sort-folder-btn"} onClick={handleChangePriorityBtn}><i className={sortIcon}></i></button>;
 
     // Error and Loading check
     if (loading) {
