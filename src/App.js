@@ -105,13 +105,13 @@ function App() {
     }
 
         // Calling the three different components for our JSX
-        return <div id={'main-container'}>
-            <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete}
-                     DeleteCompletedTasks={deleteCompletedTasks}/>
-            <Folders data={folders} db={db} setFolderProperty={setFolderProperty} setTaskProperty={setTaskProperty}
+        return <>
+                <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete}
+                         DeleteCompletedTasks={deleteCompletedTasks}/>
+                <Folders data={folders} db={db} setFolderProperty={setFolderProperty} setTaskProperty={setTaskProperty}
                          hideComplete={hideComplete} addNewTask={addNewTask} storeTasks={storeTasks} deleteFolder={deleteFolder}/>
-            <BottomBar addNewFolder={addNewFolder}/>
-        </div>
+                <BottomBar addNewFolder={addNewFolder}/>
+        </>
 }
 
 export default App;

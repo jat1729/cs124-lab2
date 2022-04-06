@@ -76,7 +76,7 @@ function Folder(props) {
     } else if (props.folder.sort === "reverse-name") {
         sortIcon = "fa-solid fa-arrow-up-z-a"
     } else {
-        sortIcon = "fa-solid fa-align-justify"
+        sortIcon = "fa-solid fa-calendar"
     }
     sort_btn = <button className={"sort-folder-btn"} onClick={handleChangePriorityBtn}><i className={sortIcon}></i></button>;
 
