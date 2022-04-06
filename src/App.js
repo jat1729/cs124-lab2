@@ -87,9 +87,13 @@ function App() {
     // deleting completed tasks from our initial data
     function deleteCompletedTasks() {
         for (const folderId in storedTasks){
-            storedTasks[folderId].forEach(task => task.completed && deleteDoc(doc(db,collectionName,folderId,subCollectionName,task.id)))
+            storedTasks[folderId].forEach(task => task.completed && deleteDoc(doc(db, collectionName, folderId, subCollectionName, task.id)));
         }
         console.log(storedTasks)
+    }
+
+    function deleteFolder(folderId) {
+        deleteDoc(doc(db,collectionName, folderId));
     }
 
     // Error and Loading check
@@ -105,7 +109,7 @@ function App() {
             <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete}
                      DeleteCompletedTasks={deleteCompletedTasks}/>
             <Folders data={folders} db={db} setFolderProperty={setFolderProperty} setTaskProperty={setTaskProperty}
-                         hideComplete={hideComplete} addNewTask={addNewTask} storeTasks={storeTasks}/>
+                         hideComplete={hideComplete} addNewTask={addNewTask} storeTasks={storeTasks} deleteFolder={deleteFolder}/>
             <BottomBar addNewFolder={addNewFolder}/>
         </div>
 }

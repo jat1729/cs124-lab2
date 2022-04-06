@@ -37,6 +37,11 @@ function Folder(props) {
         setEditFolder(!editFolder);
     }
 
+    // Changing the status of edit folder when the edit button is clicked
+    function handleClickDeleteBtn() {
+        props.deleteFolder(props.folder.id);
+    }
+
     //Toggles the chevron direction and task shown
     function handleClickChevronBtn() {
         setShowTasks(!showTasks);
@@ -83,8 +88,8 @@ function Folder(props) {
     if (error) {
         return "error..";
     }
-    return <div>
-        <ul>
+    return <div className={"folder-space"}>
+
             <li className={"folder"}>
                 {sort_btn}
                 {editFolder ?
@@ -94,6 +99,9 @@ function Folder(props) {
                 }
                 <button className={"edit-folder-btn"} onClick={handleClickEditBtn}>
                     <i className="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button className="delete-folder-btn" onClick={handleClickDeleteBtn}>
+                    <i className="fa-regular fa-trash-can"></i>
                 </button>
                 <button className={"new-task"} onClick={addNewTask}>
                     <i className="fa-solid fa-plus"></i>
@@ -107,13 +115,13 @@ function Folder(props) {
                     </button>
                 }
                 {(showTasks && (tasks.length !== 0)) ?
-                    <ul className={"task-container"}>
+                    <div className={"task-container"}>
                     {tasks.map((task) => !(props.hideComplete && task.completed) ?
                         <Task key={task.id} task={task} folder={props.folder} setTaskProperty={props.setTaskProperty}
                               setFolderProperty={props.setFolderProperty} priority={task.priority}/>: null)}
-                </ul> : null}
+                </div> : null}
             </li>
-        </ul>
+
     </div>
 }
 
