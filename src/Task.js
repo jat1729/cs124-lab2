@@ -46,14 +46,13 @@ function Task(props) {
     let priority = ''
     if (props.priority === 0) {
         priority = '!'
-
     } else if (props.priority === 1) {
         priority = '!!'
     } else {
         priority = '!!!'
     }
     priority_btn = <button className={"priority-btn"} onClick={handleClickPriorityBtn}
-                           aria-label={"priority button for "+props.task.taskName+" with priority "+props.task.priority}>{priority}</button>;
+                           aria-label={"priority button for "+props.task.taskName+" with priority "+(props.priority+1).toString()}>{priority}</button>;
 
     return <div>
         <li className={"tasks"}>
