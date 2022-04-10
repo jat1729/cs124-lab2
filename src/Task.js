@@ -1,9 +1,8 @@
  import './Task.css';
-import {useState} from 'react';
 
 function Task(props) {
     // used for determining the status of editing the tasks
-    const [editTask,setEditTask] = useState(false);
+    const isInEditMode = props.editableTasks.includes(props.task.id);
 
     // changes priority level for a task
     function handleClickPriorityBtn() {
@@ -19,7 +18,11 @@ function Task(props) {
     }
 
     function handleClickEditBtn() {
-        setEditTask(!editTask);
+        if (isInEditMode) {
+            props.setEditableTasks(props.editableTasks.filter(taskId => taskId !== props.task.id));
+        } else {
+            props.setEditableTasks([...props.editableTasks, props.task.id]);
+        }
     }
 
     // used for changing the task name
@@ -33,6 +36,12 @@ function Task(props) {
         props.setTaskProperty(props.folder.id, props.task.id, "completed", !props.task.completed );
     }
 
+    const handleEnterPress = e => {
+        if (e.charCode === 13) {
+            handleClickEditBtn();
+        }
+    }
+
     let priority_btn;
     let priority = ''
     if (props.priority === 0) {
@@ -43,24 +52,26 @@ function Task(props) {
     } else {
         priority = '!!!'
     }
-    priority_btn = <button className={"priority-btn"} onClick={handleClickPriorityBtn}>{priority}</button>;
+    priority_btn = <button className={"priority-btn"} onClick={handleClickPriorityBtn}
+                           aria-label={"priority button for "+props.task.taskName+" with priority "+props.task.priority}>{priority}</button>;
 
     return <div>
         <li className={"tasks"}>
             {priority_btn}
-            {(editTask)?
-                    <input id={"edit-task-input"} type={"text"} value={props.task.taskName}
-                            onChange={(e) => handleChangeEditBtn(e.target.value)}/>:
-                <div className={props.task.completed ? "completed taskName" : "taskName"}>
+            {(isInEditMode)?
+                <input id={"edit-task-input"} type={"text"} value={props.task.taskName}
+                       onChange={(e) => handleChangeEditBtn(e.target.value)}
+                       onKeyPress={handleEnterPress} aria-label={props.task.taskName}/>:
+                <div className={props.task.completed ? "completed taskName" : "taskName"} aria-label={props.task.taskName}>
                     {props.task.taskName}
                 </div>
             }
             <button className="edit-btn"
-                    onClick={handleClickEditBtn}>
+                    onClick={handleClickEditBtn} aria-label={"Edit Task button for "+props.task.taskName}>
                 <i className="fa-solid fa-pen-to-square"></i>
             </button>
             <button className="completed-btn"
-                    onClick={handleClickCompleteBtn}>
+                    onClick={handleClickCompleteBtn} aria-label={"Completed button for "+props.task.taskName}>
                 <i className="fa-solid fa-check"></i>
             </button>
         </li>

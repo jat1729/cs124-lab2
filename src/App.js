@@ -70,6 +70,8 @@ function App() {
             completed: false,
             priority: 0
         });
+        console.log("return new unique ID")
+        return uniqueId;
     }
 
     // adding a new folder
