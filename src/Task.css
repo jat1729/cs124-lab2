@@ -37,6 +37,7 @@
 
 /* Styling of form when we edit a task */
 #edit-task-input {
+    width: 100%;
     text-overflow: clip;
     font-size: 20px;
     height: 23px;

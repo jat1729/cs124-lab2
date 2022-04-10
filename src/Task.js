@@ -62,7 +62,7 @@ function Task(props) {
                 <input id={"edit-task-input"} type={"text"} value={props.task.taskName}
                        onChange={(e) => handleChangeEditBtn(e.target.value)}
                        onKeyPress={handleEnterPress} aria-label={props.task.taskName}/>:
-                <div className={props.task.completed ? "completed taskName" : "taskName"} aria-label={props.task.taskName}>
+                <div className={props.task.completed ? "completed taskName" : "taskName"} aria-label={props.task.taskName} tabindex={"0"} onKeyPress={handleEnterPress} onClick={handleClickEditBtn}>
                     {props.task.taskName}
                 </div>
             }

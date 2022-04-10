@@ -109,7 +109,7 @@ function Folder(props) {
                         <input id={"edit-folder-input"} type={"text"} value={props.folder.folderName}
                                onChange={(e) => handleChangeEditBtn(e.target.value)}
                                onKeyPress={handleEnterPress}/>:
-                    <div className={"folderName"}>{props.folder.folderName}</div>
+                    <div className={"folderName"} tabIndex={"0"} onKeyPress={handleEnterPress} onClick={handleClickEditBtn}> {props.folder.folderName}</div>
                 }
                 <button className="delete-folder-btn" onClick={handleClickDeleteBtn} aria-label={"Delete " + props.folder.folderName}>
                     <i className="fa-regular fa-trash-can"></i>

@@ -26,6 +26,7 @@
 
 /* Styling of form when we edit a folder */
 #edit-folder-input {
+    width: 100%;
     font-size: 28px;
     height: 32px;
     background-color: #84CEEB;
