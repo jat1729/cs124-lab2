@@ -65,14 +65,22 @@ And the narrow screen below:
 We decided that increasing or decreasing text space based on screen size was the most logical means of supporting multiple
 screen sizes. This is due to the fact that the most important information to the user was the task description and folder
 description. Thus, depending on the screen size the user selected, the amount of space given to these descriptions would 
-change accordingly.
-1) In-edit text mode bug
+change accordingly. To do this, we utilized a flex grow for the taskbar, and since our tasks and folders are made up of
+grid boxes, made the text be all the remaining free space.
+
+We encountered a bug in our CSS whenever we were changing the width of our screen below 290px and then tried to edit the
+name of either a folder or task. The size of the input would exceed the width of the screen. The fix to this bug was 
+setting the "width: 100%" for the inputs in both the folder and task. 
 
 
 ## User Testing
-We completed user testing for the priority feature of our app and 4 out of 5 users found the exclamation mark to be a
-useful icon for priority. They also found the way of incrementing and decrementing the number of exclamation marks to be
-intuitive and easy to use. Additionally, all the users found the sorting to be helpful and thought the icons were an
-appropriate display of the feature we will sort by. 
+We completed user testing for the folder and accessibility feature of our app by testing 5 users. 3 out of 5 users could
+not tell that "Tasks to Complete" was a button so in Lab5 we will add a color contrast to that button (make it more apparent). 
+Additionally, 2 out of the 5 users didn't understand our default sorting icon (a calendar) so we will use the increasing
+priority sorting icon to portray the various sorting options. Another feature that made the app difficult to use was the 
+lack of color difference between edit and non-edit mode as the color contrast did not portray a difference (light blue vs. 
+dark blue). This stumped 4 out of 5 users and therefore a change we must make in lab 5. One user stated that he was 
+confused between the trash icons, so we hope to add a label for each icon (one for deleting a folder and one for deleting
+completed items).
 
 
