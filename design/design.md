@@ -53,6 +53,19 @@ we added to folders was sorting by creation date as we did not implement this la
 we used Font-Awesome to retrieve a calendar icon and sorted the tasks by the ```created``` field when querying the tasks.
 
 ## Multiple Screen Sizes
+In order to support multiple screen sizes, we decided to prioritize the text space for the tasks and folders. The 
+difference can be seen between the wide screen below:
+
+![wideScreen](wideScreen.png)
+
+And the narrow screen below:
+
+![narrowScreen](narrowScreen.png)
+
+We decided that increasing or decreasing text space based on screen size was the most logical means of supporting multiple
+screen sizes. This is due to the fact that the most important information to the user was the task description and folder
+description. Thus, depending on the screen size the user selected, the amount of space given to these descriptions would 
+change accordingly.
 1) In-edit text mode bug
 
 
