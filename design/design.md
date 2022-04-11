@@ -2,11 +2,20 @@
 
 # Introduction
 The creators of this to-do list app are Aditya Bhargava (HMC '23) and Joel Tan-Aristy (HMC '24). In this lab, 
-we designed and implemented an accessible to-do list using React, JavaScript, and Firebase. What makes our to-do list 
-different from other to-do lists is that we have an option for showing the tasks yet to complete, folders to organize
-our tasks, different ways to sort your tasks, and additional support for multiple screen sizes  
+we designed and implemented an accessible to-do list using HTML, CSS, React, JavaScript, and Firebase. What makes our 
+to-do list different from other to-do lists is that we have an option for showing the tasks yet to complete, folders to 
+organize our tasks, different ways to sort your tasks, and additional support for multiple screen sizes  
 
 ## Accessibility
+Using our application entirely from the keyboard:
+
+Using our application using a screen reader:
+
+We provided support for Users with low vision (trouble seeing small print or objects). This was completed by making sure 
+that the color contrast between the foreground and background was Normal Text WCAG AA,AAA certified and Large Text WCAG 
+AA,AAA certified. The results can be seen below
+![contrastChecker1](contrastChecker1.png)
+![contrastChecker2](contrastChecker2.png)
 
 ## Folders
 1) Add new folder button color change
