@@ -22,7 +22,7 @@ Additionally, we added a function to our app so users can edit the name of folde
 so users don't have to click on the edit button and go back to change the name of the folder or task. Another function we
 added was allowing the user to click the enter button when they want to save the changes to the folder or task name. This
 again removes excessive movement as users had to traverse to the edit button when they wanted to save changes to their 
-folder/task name. To make text elements tabbable, we added a 'tabIndex=0' attribute to our div container that contained 
+folder/task name. To make text elements tabbable, we added a ```tabIndex=0``` attribute to our div container that contained 
 the name of the text or folder. Our video of using our app entirely from the keyboard is above. 
 
 We provided users who can't see at all (using a screen reader) additional support by adding aria-labels to our html elements. We found this
