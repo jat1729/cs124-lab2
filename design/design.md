@@ -7,9 +7,9 @@ to-do list different from other to-do lists is that we have an option for showin
 organize our tasks, different ways to sort your tasks, and additional support for multiple screen sizes  
 
 ## Accessibility
-Using our application entirely from the keyboard:
+Using our application entirely from the keyboard: https://photos.app.goo.gl/wN63KsLDpDQMEHEB7
 
-Using our application using a screen reader:
+Using our application using a screen reader: https://photos.app.goo.gl/Lf3bbU1djLsz3Zb99
 
 We provided support for users with low vision (trouble seeing small print or objects). This was completed by making sure 
 that the color contrast between the foreground and background was Normal Text WCAG AA,AAA certified and Large Text WCAG 
@@ -74,6 +74,5 @@ We completed user testing for the priority feature of our app and 4 out of 5 use
 useful icon for priority. They also found the way of incrementing and decrementing the number of exclamation marks to be
 intuitive and easy to use. Additionally, all the users found the sorting to be helpful and thought the icons were an
 appropriate display of the feature we will sort by. 
-
 
 
