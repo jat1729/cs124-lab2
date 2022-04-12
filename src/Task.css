@@ -11,7 +11,7 @@
 
 /* Styling for task name*/
 .taskName {
-    max-width: 227px;
+    max-width: 1fr;
     word-break: break-all;
     grid-column: 2/span 1;
 }
@@ -37,8 +37,9 @@
 
 /* Styling of form when we edit a task */
 #edit-task-input {
+    width: 100%;
+    text-overflow: clip;
     font-size: 20px;
-    width: 200px;
     height: 23px;
     grid-column: 2/span 1;
     background-color: #5AB9EA;

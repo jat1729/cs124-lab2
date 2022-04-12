@@ -13,11 +13,11 @@ function Taskbar(props) {
 
     return <div id="taskbar">
         <button id="tasks-to-complete-btn" className="btn"
-                onClick={handleTaskToCompleteBtn}>{props.hideComplete ? "All Tasks": "Tasks to Complete" }
+                onClick={handleTaskToCompleteBtn} aria-label={props.hideComplete ? "Show All Tasks": "Show Tasks to Complete" }>{props.hideComplete ? "All Tasks": "Tasks to Complete"}
         </button>
         <h1>To Do List</h1>
         <button id="trash-btn" className="btn"
-                onClick={handleTrashBtn}><i className="fa-regular fa-trash-can"></i>
+                onClick={handleTrashBtn} aria-label={"Delete Completed Tasks"}><i className="fa-regular fa-trash-can"></i>
         </button>
         </div>
 }

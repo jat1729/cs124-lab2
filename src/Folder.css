@@ -1,4 +1,4 @@
-/* Categories of items (Personal, Work, Academic) */
+/* Categories of items (Personal, Work, Academic, etc. ) */
 .folder {
     font-family: Arial, sans-serif;
     font-size: 28px;
@@ -9,19 +9,25 @@
     border-style: solid;
     border-width: thin 0 thin 0;
     display: grid;
-    grid-template-columns: 30px 1fr  30px 30px 30px;
+    grid-template-columns: 30px 1fr  30px 30px 30px 30px;
+    grid-template-rows: 30px 1fr;
+
+}
+
+.folder-space {
+    padding-bottom:10px;
+    padding-top:10px;
 }
 
 /* Styling for the folder name text */
 .folderName {
-    max-width: 220px;
     word-break: break-all;
 }
 
 /* Styling of form when we edit a folder */
 #edit-folder-input {
+    width: 100%;
     font-size: 28px;
-    width: 200px;
     height: 32px;
     background-color: #84CEEB;
     padding: 0;
@@ -35,6 +41,7 @@
     grid-column: 1/span 1;
     border: none;
     background-color: #5AB9EA;
+    grid-row: 1/span 1;
 }
 
 .sort-folder-btn:hover {
@@ -44,7 +51,8 @@
 /* Styling of edit folder button */
 .edit-folder-btn {
     border-radius: 20px;
-    grid-column: 3/span 1;
+    grid-column: 4/span 1;
+    grid-row: 1/span 1;
     border: none;
     background-color: #5AB9EA;
 }
@@ -53,10 +61,24 @@
     background-color: #666666;
 }
 
+/* Styling of edit folder button */
+.delete-folder-btn {
+    border-radius: 20px;
+    grid-column: 3/span 1;
+    grid-row: 1/span 1;
+    border: none;
+    background-color: #5AB9EA;
+}
+
+.delete-folder-btn:hover {
+    background-color: #666666;
+}
+
 /* Styling of new-task button */
 .new-task {
     border-radius: 12px;
-    grid-column: 4/span 1;
+    grid-column: 5/span 1;
+    grid-row: 1/span 1;
     background-color: #5AB9EA;
     border: none;
     font-size: 20px;
@@ -69,7 +91,8 @@
 /* Styling of drop-down button */
 .drop-down-btn {
     border-radius: 12px;
-    grid-column: 5/span 1;
+    grid-column: 6/span 1;
+    grid-row: 1/span 1;
     background-color: #5AB9EA;
     border: none;
     font-size: 20px;
@@ -84,5 +107,8 @@ ul {
 }
 
 .task-container {
-    grid-column: 1/span 4;
+    padding: 0px;
+    grid-column: 1/span 5;
+    grid-row: 2/span 1;
+
 }

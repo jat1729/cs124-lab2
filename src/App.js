@@ -46,14 +46,14 @@ function App() {
     // updating a field attribute of a task in initial data
     function setTaskProperty(folderId, taskId, property, value) {
         const folderDoc = doc(db, collectionName, folderId);
-        updateDoc(doc(collection(folderDoc, "tasks"), taskId), {
+        void updateDoc(doc(collection(folderDoc, "tasks"), taskId), {
             [property]: value
-        }).then();
+        });
     }
 
     // updating a field attribute of a folder in initial data
     function setFolderProperty(folderId, property, value) {
-        updateDoc(doc(db, collectionName, folderId), {
+        void updateDoc(doc(db, collectionName, folderId), {
             [property]: value
         });
     }
@@ -62,34 +62,40 @@ function App() {
     function addNewTask(folderId) {
         const uniqueId = generateUniqueID();
         const folderDoc = doc(db, collectionName, folderId);
-        setDoc(doc(collection(folderDoc, subCollectionName), uniqueId), {
+        void setDoc(doc(collection(folderDoc, subCollectionName), uniqueId), {
             id: uniqueId,
             created: serverTimestamp(),
             taskName: "New Task",
             taskNameCaseInsesitive: "new task",
             completed: false,
             priority: 0
-        }).then();
+        });
+        console.log("return new unique ID")
+        return uniqueId;
     }
 
     // adding a new folder
     function addNewFolder() {
         const uniqueId = generateUniqueID();
-        setDoc(doc(db, collectionName, uniqueId),
+        void setDoc(doc(db, collectionName, uniqueId),
             {
                 id: uniqueId,
                 created: serverTimestamp(),
                 folderName: "New Folder",
                 sort: "unsorted"
-            }).then();
+            });
     }
 
     // deleting completed tasks from our initial data
     function deleteCompletedTasks() {
         for (const folderId in storedTasks){
-            storedTasks[folderId].forEach(task => task.completed && deleteDoc(doc(db,collectionName,folderId,subCollectionName,task.id)))
+            storedTasks[folderId].forEach(task => task.completed && deleteDoc(doc(db, collectionName, folderId, subCollectionName, task.id)));
         }
         console.log(storedTasks)
+    }
+
+    function deleteFolder(folderId) {
+        deleteDoc(doc(db,collectionName, folderId));
     }
 
     // Error and Loading check
@@ -101,13 +107,13 @@ function App() {
     }
 
         // Calling the three different components for our JSX
-        return <div id={'main-container'}>
-            <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete}
-                     DeleteCompletedTasks={deleteCompletedTasks}/>
-            <Folders data={folders} db={db} setFolderProperty={setFolderProperty} setTaskProperty={setTaskProperty}
-                         hideComplete={hideComplete} addNewTask={addNewTask} storeTasks={storeTasks}/>
-            <BottomBar addNewFolder={addNewFolder}/>
-        </div>
+        return <>
+                <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete}
+                         DeleteCompletedTasks={deleteCompletedTasks}/>
+                <Folders data={folders} db={db} setFolderProperty={setFolderProperty} setTaskProperty={setTaskProperty}
+                         hideComplete={hideComplete} addNewTask={addNewTask} storeTasks={storeTasks} deleteFolder={deleteFolder}/>
+                <BottomBar addNewFolder={addNewFolder}/>
+        </>
 }
 
 export default App;

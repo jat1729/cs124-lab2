@@ -10,31 +10,37 @@ function Folder(props) {
     const [editFolder,setEditFolder] = useState(false);
     // used to determine the direction of chevron button and whether tasks are shown
     const [showTasks, setShowTasks] = useState(true);
+
+    const [editableTasks, setEditableTasks] = useState([]);
     // query for tasks collection
     // retrieving the list of tasks
-    let tasksQuery = ''
+    let sortOrder = '';
     if (props.folder.sort === "priority") {
-        tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"),
-            orderBy("priority", "desc"));
+        sortOrder = orderBy("priority", "desc");
     } else if (props.folder.sort === "name") {
-        tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"), orderBy("taskNameCaseInsesitive"));
-    } else if (props.folder.sort === "unsorted"){
-        tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"));
+        sortOrder = orderBy("taskNameCaseInsesitive");
+    } else if (props.folder.sort === "unsorted") {
+        sortOrder = orderBy('created')
     } else if (props.folder.sort === "reverse-name") {
-        tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"), orderBy("taskNameCaseInsesitive", "desc"));
+        sortOrder = orderBy("taskNameCaseInsesitive", "desc")
     }
+    let tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"), sortOrder);
     const [tasks, loading, error] = useCollectionData(tasksQuery);
-    console.log(tasks)
     props.storeTasks(props.folder.id, tasks);
 
     // Adding a new task
     function addNewTask() {
-        props.addNewTask(props.folder.id);
+        editableTasks.push(props.addNewTask(props.folder.id));
     }
 
     // Changing the status of edit folder when the edit button is clicked
     function handleClickEditBtn() {
         setEditFolder(!editFolder);
+    }
+
+    // Changing the status of edit folder when the edit button is clicked
+    function handleClickDeleteBtn() {
+        props.deleteFolder(props.folder.id);
     }
 
     //Toggles the chevron direction and task shown
@@ -49,30 +55,43 @@ function Folder(props) {
     }
 
     function handleChangePriorityBtn() {
+        let sortOrderBy = ''
         if (props.folder.sort === "priority") {
-            props.setFolderProperty(props.folder.id, "sort", "name");
+            sortOrderBy = "name"
         } else if (props.folder.sort === "unsorted") {
-            props.setFolderProperty(props.folder.id, "sort", "priority");
+            sortOrderBy = "priority"
         } else if (props.folder.sort === "name") {
-            props.setFolderProperty(props.folder.id, "sort", "reverse-name");
+            sortOrderBy = "reverse-name"
         } else if (props.folder.sort === "reverse-name") {
-            props.setFolderProperty(props.folder.id, "sort", "unsorted");
+            sortOrderBy = "unsorted"
+        }
+        props.setFolderProperty(props.folder.id, "sort", sortOrderBy);
+    }
+
+    const handleEnterPress = e => {
+        if (e.charCode === 13) {
+            setEditFolder(!editFolder);
         }
     }
 
     let sort_btn;
+    let sortIcon = "";
+    let ariaMessage = "";
     if (props.folder.sort === "priority") {
-        sort_btn = <button className={"sort-folder-btn"} onClick={handleChangePriorityBtn}><i
-            className="fa-solid fa-arrow-up-wide-short"></i></button>;
+        sortIcon = "fa-solid fa-arrow-up-wide-short";
+        ariaMessage = "Tasks Sorted by priority";
     } else if (props.folder.sort === "name") {
-        sort_btn = <button className={"sort-folder-btn"} onClick={handleChangePriorityBtn}><i className="fa-solid fa-arrow-down-a-z"></i></button>;
+        sortIcon = "fa-solid fa-arrow-down-a-z";
+        ariaMessage = "Sorted in Alphabetical Order";
     } else if (props.folder.sort === "reverse-name") {
-        sort_btn = <button className={"sort-folder-btn"} onClick={handleChangePriorityBtn}><i className="fa-solid fa-arrow-up-z-a"></i></button>;
+        sortIcon = "fa-solid fa-arrow-up-z-a";
+        ariaMessage = "Sorted in Reverse Alphabetical Order";
     } else {
-        console.log("unsorted button");
-        sort_btn = <button className={"sort-folder-btn"} onClick={handleChangePriorityBtn}><i
-            className="fa-solid fa-align-justify"></i></button>;
+        sortIcon = "fa-solid fa-calendar";
+        ariaMessage = "Sorted by Creation Date";
     }
+    sort_btn = <button className={"sort-folder-btn"} onClick={handleChangePriorityBtn} aria-label={ariaMessage}>
+        <i className={sortIcon}></i></button>;
 
     // Error and Loading check
     if (loading) {
@@ -82,39 +101,43 @@ function Folder(props) {
     if (error) {
         return "error..";
     }
-    return <div>
-        <ul>
-            <li className={"folder"}>
+    return <div className={"folder-space"}>
+
+            <div className={"folder"}>
                 {sort_btn}
                 {editFolder ?
-                    <div>
-                        <input id={"edit-folder-input"}type={"text"} value={props.folder.folderName}
-                               onChange={(e) => handleChangeEditBtn(e.target.value)}/>
-                    </div>:
-                    <div className={"folderName"}>{props.folder.folderName}</div>
+                        <input id={"edit-folder-input"} type={"text"} value={props.folder.folderName}
+                               onChange={(e) => handleChangeEditBtn(e.target.value)}
+                               onKeyPress={handleEnterPress}/>:
+                    <div className={"folderName"} tabIndex={"0"} onKeyPress={handleEnterPress} onClick={handleClickEditBtn}> {props.folder.folderName}</div>
                 }
-                <button className={"edit-folder-btn"} onClick={handleClickEditBtn}>
+                <button className="delete-folder-btn" onClick={handleClickDeleteBtn} aria-label={"Delete " + props.folder.folderName}>
+                    <i className="fa-regular fa-trash-can"></i>
+                </button>
+                <button className={"edit-folder-btn"} onClick={handleClickEditBtn}
+                        aria-label={"Edit the name of "+ props.folder.folderName}>
                     <i className="fa-solid fa-pen-to-square"></i>
                 </button>
-                <button className={"new-task"} onClick={addNewTask}>
+                <button className={"new-task"} onClick={addNewTask} aria-label={"Add a New Task"}>
                     <i className="fa-solid fa-plus"></i>
                 </button>
                 {(showTasks && (tasks.length !== 0)) ?
-                <button className="drop-down-btn" onClick={handleClickChevronBtn}>
+                <button className="drop-down-btn" onClick={handleClickChevronBtn} aria-label={"Show all task in "+ props.folder.folderName}>
                     <i className="fa-solid fa-chevron-down"></i>
                 </button>:
-                    <button className="drop-down-btn" onClick={handleClickChevronBtn}>
+                    <button className="drop-down-btn" onClick={handleClickChevronBtn} aria-label={"Hide all task in "+ props.folder.folderName}>
                         <i className="fa-solid fa-chevron-right"></i>
                     </button>
                 }
                 {(showTasks && (tasks.length !== 0)) ?
-                    <ul className={"task-container"}>
+                    <div className={"task-container"}>
                     {tasks.map((task) => !(props.hideComplete && task.completed) ?
                         <Task key={task.id} task={task} folder={props.folder} setTaskProperty={props.setTaskProperty}
-                              setFolderProperty={props.setFolderProperty} priority={task.priority}/>: null)}
-                </ul> : null}
-            </li>
-        </ul>
+                              setFolderProperty={props.setFolderProperty} priority={task.priority} editableTasks={editableTasks}
+                              setEditableTasks={setEditableTasks}/>: null)}
+                </div> : null}
+
+            </div>
     </div>
 }
 

@@ -1,18 +1,26 @@
 /* General Styling */
 body {
-    max-height: 640px;
-    max-width: 320px;
-    width: 100%;
-    height: 100%;
     font-family: Arial, sans-serif;
     background-color: #C1C8E4;
-    border-style: solid;
-}
-
-/* General Layout */
-#main-container {
-    max-height: 640px;
-    max-width: 320px;
+    border-style: none;
     display: flex;
     flex-direction: column;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
 }
+
+html, body {
+    overflow: scroll;
+}
+
+
+/*!* General Layout *!*/
+/*#main-container {*/
+/*    !*max-height: 100%;*!*/
+/*    !*max-width: 100%;*!*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    padding: 0px;*/
+
+/*}*/
