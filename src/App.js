@@ -10,6 +10,8 @@ import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {initializeApp} from "firebase/app";
 import {doc, setDoc, updateDoc, deleteDoc, collection, getFirestore, query, serverTimestamp} from "firebase/firestore";
+import {getAuth, sendEmailVerification} from "nativescript-plugin-firebase";
+import {useAuthState, useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithGoogle} from "react-firebase-hooks/auth";
 
 
 const firebaseConfig = {
@@ -29,7 +31,28 @@ const db = getFirestore(firebaseApp);
 const collectionName = "folders"
 const subCollectionName = "tasks"
 
-function App() {
+// initialize authentication
+const auth = getAuth();
+
+function App(props) {
+    const [user, loading, error] = useAuthState(auth);
+
+    if (loading) {
+        return <p>Checking...</p>
+    } else if (user) {
+        return <div>
+            {user.displayName || user.email}
+            <signedInApp {...props} user={user}/>
+        </div>
+    } else {
+        return <>
+            {error && <p>Error App: {error.message}</p>}
+
+        </>
+    }
+}
+
+function signedInApp(props) {
     // query for folders collection
     const foldersQuery = query(collection(db, collectionName));
     // retrieving the list of folders
