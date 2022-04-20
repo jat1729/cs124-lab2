@@ -10,7 +10,7 @@ import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {initializeApp} from "firebase/app";
 import {doc, setDoc, updateDoc, deleteDoc, collection, getFirestore, query, serverTimestamp} from "firebase/firestore";
-import {getAuth, sendEmailVerification} from "nativescript-plugin-firebase";
+import {getAuth, signOut, sendEmailVerification} from "firebase/auth";
 import {useAuthState, useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithGoogle} from "react-firebase-hooks/auth";
 
 
@@ -36,23 +36,104 @@ const auth = getAuth();
 
 function App(props) {
     const [user, loading, error] = useAuthState(auth);
+    function verifyEmail() {
+        sendEmailVerification(user);
+    }
 
     if (loading) {
         return <p>Checking...</p>
     } else if (user) {
         return <div>
             {user.displayName || user.email}
-            <signedInApp {...props} user={user}/>
+            <button type="button" onClick={() => signOut(auth)}>Sign out</button>
+            {!user.emailVerified && <button type="button" onClick={verifyEmail}>Verify email</button>}
+            <SignedInApp {...props} user={user}/>
         </div>
     } else {
         return <>
             {error && <p>Error App: {error.message}</p>}
-
+            <SignIn key="Sign In"/>
+            <SignUp key="Sign Up"/>
         </>
     }
 }
 
-function signedInApp(props) {
+function SignIn() {
+    const [
+        signInWithEmailAndPassword,
+        user1, loading1, error1
+    ] = useSignInWithEmailAndPassword(auth);
+    const [
+        signInWithGoogle,
+        user2, loading2, error2
+    ] = useSignInWithGoogle(auth);
+    const [email, setEmail] = useState("");
+    const [pw, setPw] = useState("");
+
+    if (user1 || user2) {
+        // Shouldn't happen because App should see that
+        // we are signed in.
+        return <div>Unexpectedly signed in already</div>
+    } else if (loading1 || loading2) {
+        return <p>Logging in…</p>
+    }
+    return <div>
+        {error1 && <p>"Error logging in: " {error1.message}</p>}
+        {error2 && <p>"Error logging in: " {error2.message}</p>}
+        <label htmlFor='email'>email: </label>
+        <input type="text" id='email' value={email}
+               onChange={e=>setEmail(e.target.value)}/>
+        <br/>
+        <label htmlFor='pw'>pw: </label>
+        <input type="text" id='pw' value={pw}
+               onChange={e=>setPw(e.target.value)}/>
+        <br/>
+        <button onClick={() =>signInWithEmailAndPassword(email, pw)}>
+            Sign in with email/pw
+        </button>
+
+        <hr/>
+        <button onClick={() => signInWithGoogle()}>
+            Sign in with Google
+        </button>
+    </div>
+}
+
+function SignUp() {
+    const [
+        createUserWithEmailAndPassword,
+        userCredential, loading, error
+    ] = useCreateUserWithEmailAndPassword(auth);
+    const [email, setEmail] = useState("");
+    const [pw, setPw] = useState("");
+
+    if (userCredential) {
+        // Shouldn't happen because App should see that
+        // we are signed in.
+        return <div>Unexpectedly signed in already</div>
+    } else if (loading) {
+        return <p>Signing up…</p>
+    }
+    return <div>
+        {error && <p>"Error signing up: " {error.message}</p>}
+        <label htmlFor='email'>email: </label>
+        <input type="text" id='email' value={email}
+               onChange={e=>setEmail(e.target.value)}/>
+        <br/>
+        <label htmlFor='pw'>pw: </label>
+        <input type="text" id='pw' value={pw}
+               onChange={e=>setPw(e.target.value)}/>
+        <br/>
+        <button onClick={() =>
+            createUserWithEmailAndPassword(email, pw)}>
+            Create test user
+        </button>
+
+    </div>
+}
+
+
+function SignedInApp(props) {
     // query for folders collection
     const foldersQuery = query(collection(db, collectionName));
     // retrieving the list of folders
