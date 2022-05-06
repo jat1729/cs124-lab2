@@ -14,6 +14,39 @@ html, body {
     overflow: scroll;
 }
 
+.Auth-btn {
+    text-align: center;
+    font-size: 8px;
+
+    background-color: #84CEEB;
+    border: none;
+    color: black;
+
+    padding: 6px 4px;
+    border-radius: 6px;
+}
+
+#Auth-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 11px;
+}
+
+#signIn {
+    display: grid;
+    grid-template-columns: 1fr 400px 1fr;
+}
+
+.middle {
+    grid-column: 2/span 1;
+
+}
+
+#alt-signIn {
+    text-align: center;
+    font-size: 11px;
+}
 
 /*!* General Layout *!*/
 /*#main-container {*/
