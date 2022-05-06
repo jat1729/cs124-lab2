@@ -53,11 +53,11 @@ function App(props) {
             <SignedInApp {...props} user={user}/>
         </div>
     } else {
-        return <>
+        return <div id={"logInPage"}>
             {error && <p>Error App: {error.message}</p>}
             <SignIn key="Sign In"/>
             <SignUp key="Sign Up"/>
-        </>
+        </div>
     }
 }
 
@@ -75,31 +75,36 @@ function SignIn() {
 
     if (user1 || user2 ) {
         // Shouldn't happen because App should see that we are signed in.
-        return <div>Unexpectedly signed in already</div>
+        return <div className={"logInCenter"}>Unexpectedly signed in already</div>
     } else if (loading1 || loading2) {
-        return <p>Logging in…</p>
+        return <div className={"logInCenter"}>
+            <h1 className={"logInCenter"} id={"toDoListHeader"}>To Do List</h1>
+            <p className={"logInCenter"}>Logging in…</p>
+        </div>
     }
-    return <div id={"signIn"}>
+    return <div className={"logInCenter"}>
+        <h1 className={"logInCenter"} id={"toDoListHeader"}>To Do List</h1>
         {error1 && <p>"Error logging in: " {error1.message}</p>}
         {error2 && <p>"Error logging in: " {error2.message}</p>}
-        <h1 className={"middle"} id={"signIn-text"}>Sign In</h1>
+        <h1  className={"logInText"}>Sign In</h1>
         <br/>
-        <label className={"middle"} htmlFor='email'>Email </label>
+        <label  htmlFor='email'>Email </label>
         <br/>
-        <input className={"middle"} type="text" id='email' value={email}
+        <input  type="text" id='email' value={email}
                    onChange={e=>setEmail(e.target.value)}/>
         <br/>
-        <label className={"middle"} htmlFor='pw'>Password </label>
+        <label  htmlFor='pw'>Password </label>
         <br/>
-        <input className={"middle"} type="text" id='pw' value={pw}
+        <input  type="text" id='pw' value={pw}
                    onChange={e=>setPw(e.target.value)}/>
         <br/>
-        <button className={"middle"} onClick={() =>signInWithEmailAndPassword(email, pw)}>
-                Log In
+        <button className={"logInBtn"} onClick={() =>signInWithEmailAndPassword(email, pw)}>
+                Sign In
         </button>
-        <text id={"alt-signIn"} className={"middle"}>or sign in with</text>
+        <br/>
+        <h1 id={"alt-signIn"} >or sign in with</h1>
         <hr/>
-        <button className={"middle"} onClick={() => signInWithGoogle()}>
+        <button className={"logInBtn"} id={"googleBtn"}onClick={() => signInWithGoogle()}>
             <i className="fa-brands fa-google"></i>
         </button>
     </div>
@@ -115,23 +120,27 @@ function SignUp() {
 
     if (userCredential) {
         // Shouldn't happen because App should see that we are signed in.
-        return <div>Unexpectedly signed in already</div>
+        return <div className={"logInCenter"}>Unexpectedly signed in already</div>
     } else if (loading) {
-        return <p>Signing up…</p>
+        return <p className={"logInCenter"}>Signing up…</p>
     }
-    return <div>
+    return <div className={"logInCenter"}>
         {error && <p>"Error signing up: " {error.message}</p>}
-        <label htmlFor='email'>email: </label>
+        <h1 className={"logInText"}>Sign Up</h1>
+        <br/>
+        <label htmlFor='email'>Email: </label>
+        <br/>
         <input type="text" id='email' value={email}
                onChange={e=>setEmail(e.target.value)}/>
         <br/>
-        <label htmlFor='pw'>pw: </label>
+        <label htmlFor='pw'>Password: </label>
+        <br/>
         <input type="text" id='pw' value={pw}
                onChange={e=>setPw(e.target.value)}/>
         <br/>
-        <button onClick={() =>
+        <button className={"logInBtn"} onClick={() =>
             createUserWithEmailAndPassword(email, pw)}>
-            Create test user
+            Sign Up
         </button>
 
     </div>
