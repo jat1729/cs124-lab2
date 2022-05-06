@@ -74,8 +74,7 @@ function SignIn() {
     const [pw, setPw] = useState("");
 
     if (user1 || user2 ) {
-        // Shouldn't happen because App should see that
-        // we are signed in.
+        // Shouldn't happen because App should see that we are signed in.
         return <div>Unexpectedly signed in already</div>
     } else if (loading1 || loading2) {
         return <p>Logging in…</p>
@@ -83,8 +82,6 @@ function SignIn() {
     return <div id={"signIn"}>
         {error1 && <p>"Error logging in: " {error1.message}</p>}
         {error2 && <p>"Error logging in: " {error2.message}</p>}
-
-
         <h1 className={"middle"} id={"signIn-text"}>Sign In</h1>
         <br/>
         <label className={"middle"} htmlFor='email'>Email </label>
@@ -100,7 +97,6 @@ function SignIn() {
         <button className={"middle"} onClick={() =>signInWithEmailAndPassword(email, pw)}>
                 Log In
         </button>
-
         <text id={"alt-signIn"} className={"middle"}>or sign in with</text>
         <hr/>
         <button className={"middle"} onClick={() => signInWithGoogle()}>
@@ -118,8 +114,7 @@ function SignUp() {
     const [pw, setPw] = useState("");
 
     if (userCredential) {
-        // Shouldn't happen because App should see that
-        // we are signed in.
+        // Shouldn't happen because App should see that we are signed in.
         return <div>Unexpectedly signed in already</div>
     } else if (loading) {
         return <p>Signing up…</p>
