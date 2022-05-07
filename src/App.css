@@ -16,7 +16,7 @@ html, body {
 
 .Auth-btn {
     text-align: center;
-    font-size: 8px;
+    font-size: 15px;
 
     background-color: #84CEEB;
     border: none;
@@ -26,12 +26,12 @@ html, body {
     border-radius: 6px;
 }
 
-/* Display for signing in or sigining up*/
+/* Display for signing in or signing up*/
 #Auth-bar {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    font-size: 11px;
+    font-size: 25px;
 }
 
 #logInPage {

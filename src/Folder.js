@@ -24,7 +24,7 @@ function Folder(props) {
     } else if (props.folder.sort === "reverse-name") {
         sortOrder = orderBy("taskNameCaseInsesitive", "desc")
     }
-    let tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"), sortOrder);
+    let tasksQuery = query(collection(props.db, "People-AuthenticationRequired", props.folder.id, "tasks"), sortOrder);
     const [tasks, loading, error] = useCollectionData(tasksQuery);
     props.storeTasks(props.folder.id, tasks);
 
@@ -99,6 +99,7 @@ function Folder(props) {
     }
 
     if (error) {
+        console.log("In Folder: ", error);
         return "error..";
     }
     return <div className={"folder-space"}>

@@ -9,7 +9,7 @@ import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {initializeApp} from "firebase/app";
-import {doc, setDoc, updateDoc, deleteDoc, collection, getFirestore, query, serverTimestamp} from "firebase/firestore";
+import {doc, setDoc, updateDoc, deleteDoc, collection, getFirestore, query, serverTimestamp, where} from "firebase/firestore";
 import {getAuth, signOut, sendEmailVerification} from "firebase/auth";
 import {useAuthState, useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithGoogle} from "react-firebase-hooks/auth";
 
@@ -28,7 +28,7 @@ const firebaseApp=initializeApp(firebaseConfig);
 
 // initialize database
 const db = getFirestore(firebaseApp);
-const collectionName = "folders"
+const collectionName = "People-AuthenticationRequired"
 const subCollectionName = "tasks"
 
 // initialize authentication
@@ -149,7 +149,7 @@ function SignUp() {
 
 function SignedInApp(props) {
     // query for folders collection
-    const foldersQuery = query(collection(db, collectionName));
+    const foldersQuery = query(collection(db, collectionName), where("sharedUsers", "array-contains", props.user.email));
     // retrieving the list of folders
     const [folders, loading, error] = useCollectionData(foldersQuery);
     // status of the "Tasks to complete" button
@@ -188,7 +188,6 @@ function SignedInApp(props) {
             completed: false,
             priority: 0
         });
-        console.log("return new unique ID")
         return uniqueId;
     }
 
@@ -197,6 +196,8 @@ function SignedInApp(props) {
         const uniqueId = generateUniqueID();
         void setDoc(doc(db, collectionName, uniqueId),
             {
+                owner: props.user.email,
+                sharedUsers: [props.user.email],
                 id: uniqueId,
                 created: serverTimestamp(),
                 folderName: "New Folder",
@@ -221,7 +222,8 @@ function SignedInApp(props) {
         return "loading..."
     }
     if (error) {
-        return "error..."
+        console.log(error)
+        return <>error</>
     }
 
         // Calling the three different components for our JSX
