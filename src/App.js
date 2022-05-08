@@ -37,7 +37,7 @@ const auth = getAuth();
 function App(props) {
     const [user, loading, error] = useAuthState(auth);
     function verifyEmail() {
-        sendEmailVerification(user);
+        void sendEmailVerification(user);
     }
 
     if (loading) {
@@ -49,7 +49,7 @@ function App(props) {
                 <button class={"Auth-btn"} onClick={() => signOut(auth)}><i
                     className="fa-solid fa-arrow-right-from-bracket"></i></button>
             </div>
-            {!user.emailVerified && <button type="button" onClick={verifyEmail}>Verify email</button>}
+            {!user.emailVerified && <button className={"Auth-btn"} type="button" onClick={verifyEmail}>Verify email</button>}
             <SignedInApp {...props} user={user}/>
         </div>
     } else {
@@ -82,10 +82,13 @@ function SignIn() {
             <p className={"logInCenter"}>Logging in…</p>
         </div>
     }
+    // {error1 && <p>"Error logging in: " {error1.message}</p>}
+    console.log(error1);
     return <div className={"logInCenter"}>
         <h1 className={"logInCenter"} id={"toDoListHeader"}>To Do List</h1>
-        {error1 && <p>"Error logging in: " {error1.message}</p>}
-        {error2 && <p>"Error logging in: " {error2.message}</p>}
+        {error1 && error1.message === "Firebase: Error (auth/wrong-password)." && <p>Incorrect Password</p>}
+        {error1 && error1.message === "Firebase: Error (auth/user-not-found)." && <p>Invalid Username</p>}
+        {error2 && error2.message === "Firebase: Error (auth/popup-closed-by-user)." && <p>Google Sign In Failed</p>}
         <h1  className={"logInText"}>Sign In</h1>
         <br/>
         <label  htmlFor='email'>Email </label>
@@ -125,7 +128,7 @@ function SignUp() {
         return <p className={"logInCenter"}>Signing up…</p>
     }
     return <div className={"logInCenter"}>
-        {error && <p>"Error signing up: " {error.message}</p>}
+        {error && error.message === "Firebase: Error (auth/email-already-in-use)." && <p>Email Already Exists</p>}
         <h1 className={"logInText"}>Sign Up</h1>
         <br/>
         <label htmlFor='email'>Email: </label>
@@ -214,7 +217,7 @@ function SignedInApp(props) {
     }
 
     function deleteFolder(folderId) {
-        deleteDoc(doc(db,collectionName, folderId));
+        void deleteDoc(doc(db,collectionName, folderId));
     }
 
     // Error and Loading check

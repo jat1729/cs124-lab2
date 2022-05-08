@@ -27,6 +27,10 @@ html, body {
     border-radius: 6px;
 }
 
+.Auth-btn:hover {
+    background-color: #666666;
+}
+
 /* Display for signing in or signing up*/
 #Auth-bar {
     display: flex;

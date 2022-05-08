@@ -61,7 +61,8 @@ function Folder(props) {
 
     // Sharing the folder
     function handleClickShareBtn() {
-        //TODO
+        let shareEmail = prompt("Share with", "example@gmail.com");
+        props.setFolderProperty(props.folder.id, "sharedUsers", props.folder.sharedUsers.concat(shareEmail));
     }
 
     // checks if owner of the folder
