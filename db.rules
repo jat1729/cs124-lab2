@@ -1,0 +1,40 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	// ensures that the user is valud and signed in
+    function signedIn() {
+      return request.auth.uid != null;
+    }
+    
+    // ensures that the current user of the list is the owner of the document
+    function isDocOwner() {
+      return request.auth.token.email == resource.data.owner;
+    }
+  
+  	// ensures that the current document has the right owner
+    function updatedDocHasCorrectOwner() {
+      return request.auth.token.email == request.resource.data.owner;
+    }
+
+		// ensures that updating the document has no effect on the owner (owner stays constant)
+    function updatedDocHasSameOwner() {
+      return resource.data.owner == request.resource.data.owner;
+    }
+    
+    // ensures that the current user of the list is one of the sharedUsers of the document
+    function isSharedWithMe() {
+      return request.auth.token.email in resource.data.sharedUsers;
+    }
+    
+    match /People-AuthenticationRequired/{folder} {
+      allow read: if signedIn() && isSharedWithMe();
+      allow create: if signedIn() && updatedDocHasCorrectOwner();
+      allow update: if signedIn() && isSharedWithMe() && updatedDocHasSameOwner();
+      allow delete: if signedIn() && isDocOwner();
+      
+      match /tasks/{task} {
+      	allow read, write: if true;
+      }
+    }
+  }
+}
