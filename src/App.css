@@ -86,6 +86,11 @@ input {
     background-color: #FCFCFC;
 }
 
+.logInBtn:hover {
+    background-color: #666666;
+}
+
+
 /* Styles the sign in with Google btn */
 #googleBtn {
     alignment: center;
@@ -93,6 +98,10 @@ input {
     display: block;
     border-radius: 50px;
     font-size: 20px;
+}
+
+#googleBtn:hover {
+    background-color: #666666;
 }
 
 /* Header with To Do List for log in page */
