@@ -39,7 +39,7 @@ html, body {
     font-size: 25px;
 }
 
-/* container for log in page */
+/* Container for log in page */
 #logInPage {
     display: grid;
     grid-template-columns: 1fr 50% 1fr;
@@ -105,13 +105,3 @@ input {
     flex-grow: 3;
     padding: 0
 }
-
-/*!* General Layout *!*/
-/*#main-container {*/
-/*    !*max-height: 100%;*!*/
-/*    !*max-width: 100%;*!*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    padding: 0px;*/
-
-/*}*/

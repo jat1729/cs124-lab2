@@ -36,17 +36,20 @@ const auth = getAuth();
 
 function App(props) {
     const [user, loading, error] = useAuthState(auth);
+
+    // email verification
     function verifyEmail() {
         void sendEmailVerification(user);
     }
 
+    // authentication and log in
     if (loading) {
         return <p>Checking...</p>
     } else if (user) {
         return <div>
             <div id={"Auth-bar"}>
                 {user.displayName || user.email}
-                <button class={"Auth-btn"} onClick={() => signOut(auth)}><i
+                <button class={"Auth-btn"} onClick={() => signOut(auth)} title={"Sign Out"}><i
                     className="fa-solid fa-arrow-right-from-bracket"></i></button>
             </div>
             {!user.emailVerified && <button className={"Auth-btn"} type="button" onClick={verifyEmail}>Verify email</button>}
@@ -72,9 +75,7 @@ function SignIn() {
     ] = useSignInWithGoogle(auth);
     const [email, setEmail] = useState("");
     const [pw, setPw] = useState("");
-
     if (user1 || user2 ) {
-        // Shouldn't happen because App should see that we are signed in.
         return <div className={"logInCenter"}>Unexpectedly signed in already</div>
     } else if (loading1 || loading2) {
         return <div className={"logInCenter"}>
@@ -82,8 +83,6 @@ function SignIn() {
             <p className={"logInCenter"}>Logging in…</p>
         </div>
     }
-    // {error1 && <p>"Error logging in: " {error1.message}</p>}
-    console.log(error1);
     return <div className={"logInCenter"}>
         <h1 className={"logInCenter"} id={"toDoListHeader"}>To Do List</h1>
         {error1 && error1.message === "Firebase: Error (auth/wrong-password)." && <p>Error: Incorrect Password</p>}
@@ -99,7 +98,7 @@ function SignIn() {
         <br/>
         <label  htmlFor='pw'>Password </label>
         <br/>
-        <input  type="text" id='pw' value={pw}
+        <input  type="password" id='pw' value={pw}
                    onChange={e=>setPw(e.target.value)}/>
         <br/>
         <button className={"logInBtn"} onClick={() =>signInWithEmailAndPassword(email, pw)}>
@@ -123,14 +122,15 @@ function SignUp() {
     const [pw, setPw] = useState("");
 
     if (userCredential) {
-        // Shouldn't happen because App should see that we are signed in.
         return <div className={"logInCenter"}>Unexpectedly signed in already</div>
     } else if (loading) {
         return <p className={"logInCenter"}>Signing up…</p>
     }
     return <div className={"logInCenter"}>
         {error && error.message === "Firebase: Error (auth/email-already-in-use)." && <p>Error: Email Already Exists</p>}
-        {error && error.message !== "Firebase: Error (auth/email-already-in-use)." && <p>Error: Issue Signing Up</p>}
+        {error && error.message === "Firebase: Error (auth/invalid-email)." && <p>Error: Invalid Email</p>}
+        {error && error.message === "Firebase: Password should be at least 6 characters (auth/weak-password)."
+            && <p>Error: Password needs to be at least 6 characters</p>}
         <h1 className={"logInText"}>Sign Up</h1>
         <br/>
         <label htmlFor='email'>Email: </label>
@@ -140,14 +140,13 @@ function SignUp() {
         <br/>
         <label htmlFor='pw'>Password: </label>
         <br/>
-        <input type="text" id='pw' value={pw}
+        <input type="password" id='pw' value={pw}
                onChange={e=>setPw(e.target.value)}/>
         <br/>
         <button className={"logInBtn"} onClick={() =>
             createUserWithEmailAndPassword(email, pw)}>
             Sign Up
         </button>
-
     </div>
 }
 
@@ -159,9 +158,9 @@ function SignedInApp(props) {
     const [folders, loading, error] = useCollectionData(foldersQuery);
     // status of the "Tasks to complete" button
     const [hideComplete, setHideComplete] = useState(false);
-
     const storedTasks = {};
 
+    // storing tasks
     function storeTasks(folderId, tasks) {
         storedTasks[folderId] = tasks;
     }
@@ -215,7 +214,6 @@ function SignedInApp(props) {
         for (const folderId in storedTasks){
             storedTasks[folderId].forEach(task => task.completed && deleteDoc(doc(db, collectionName, folderId, subCollectionName, task.id)));
         }
-        console.log(storedTasks)
     }
 
     function deleteFolder(folderId) {
@@ -227,11 +225,8 @@ function SignedInApp(props) {
         return "loading..."
     }
     if (error) {
-        console.log(error)
         return <>error</>
     }
-
-        // Calling the three different components for our JSX
         return <>
                 <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete}
                          DeleteCompletedTasks={deleteCompletedTasks}/>
@@ -241,5 +236,4 @@ function SignedInApp(props) {
                 <BottomBar addNewFolder={addNewFolder}/>
         </>
 }
-
 export default App;
