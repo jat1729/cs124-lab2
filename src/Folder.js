@@ -38,9 +38,14 @@ function Folder(props) {
         setEditFolder(!editFolder);
     }
 
-    // Changing the status of edit folder when the edit button is clicked
+    // Handles deleting the folder
     function handleClickDeleteBtn() {
         props.deleteFolder(props.folder.id);
+    }
+
+    // Handles unsharing the folder
+    function handleClickUnshareBtn() {
+        props.setFolderProperty(props.folder.id, "sharedUsers", props.folder.sharedUsers.filter(email => email !== props.user.email));
     }
 
     //Toggles the chevron direction and task shown
@@ -51,7 +56,17 @@ function Folder(props) {
 
     // Editing the name of the folder
     function handleChangeEditBtn(newFolderName) {
-        props.setFolderProperty(props.folder.id, "folderName", newFolderName)
+        props.setFolderProperty(props.folder.id, "folderName", newFolderName);
+    }
+
+    // Sharing the folder
+    function handleClickShareBtn() {
+        //TODO
+    }
+
+    // checks if owner of the folder
+    function isOwner() {
+        return props.user.email == props.folder.owner;
     }
 
     function handleChangePriorityBtn() {
@@ -103,7 +118,6 @@ function Folder(props) {
         return "error..";
     }
     return <div className={"folder-space"}>
-
             <div className={"folder"}>
                 {sort_btn}
                 {editFolder ?
@@ -112,9 +126,14 @@ function Folder(props) {
                                onKeyPress={handleEnterPress}/>:
                     <div className={"folderName"} tabIndex={"0"} onKeyPress={handleEnterPress} onClick={handleClickEditBtn}> {props.folder.folderName}</div>
                 }
-                <button className="delete-folder-btn" onClick={handleClickDeleteBtn} aria-label={"Delete " + props.folder.folderName}>
-                    <i className="fa-regular fa-trash-can"></i>
+                <button className="share-folder-btn" onClick={handleClickShareBtn} aria-label={"Share " + props.folder.folderName}>
+                    <i className="fa-solid fa-share-from-square"></i>
                 </button>
+                {isOwner() ? <button className="delete-folder-btn" onClick={handleClickDeleteBtn} aria-label={"Delete " + props.folder.folderName}>
+                    <i className="fa-regular fa-trash-can"></i>
+                </button> : <button className="delete-folder-btn" onClick={handleClickUnshareBtn} aria-label={"Unshare " + props.folder.folderName}>
+                    <i className="fa-regular fa-square-minus"></i>
+                </button>}
                 <button className={"edit-folder-btn"} onClick={handleClickEditBtn}
                         aria-label={"Edit the name of "+ props.folder.folderName}>
                     <i className="fa-solid fa-pen-to-square"></i>

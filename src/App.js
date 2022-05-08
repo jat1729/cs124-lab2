@@ -231,7 +231,8 @@ function SignedInApp(props) {
                 <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete}
                          DeleteCompletedTasks={deleteCompletedTasks}/>
                 <Folders data={folders} db={db} setFolderProperty={setFolderProperty} setTaskProperty={setTaskProperty}
-                         hideComplete={hideComplete} addNewTask={addNewTask} storeTasks={storeTasks} deleteFolder={deleteFolder}/>
+                         hideComplete={hideComplete} addNewTask={addNewTask} storeTasks={storeTasks} deleteFolder={deleteFolder}
+                         user={props.user}/>
                 <BottomBar addNewFolder={addNewFolder}/>
         </>
 }
