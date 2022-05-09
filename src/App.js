@@ -9,7 +9,9 @@ import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {initializeApp} from "firebase/app";
-import {doc, setDoc, updateDoc, deleteDoc, collection, getFirestore, query, serverTimestamp} from "firebase/firestore";
+import {doc, setDoc, updateDoc, deleteDoc, collection, getFirestore, query, serverTimestamp, where} from "firebase/firestore";
+import {getAuth, signOut, sendEmailVerification} from "firebase/auth";
+import {useAuthState, useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithGoogle} from "react-firebase-hooks/auth";
 
 
 const firebaseConfig = {
@@ -26,19 +28,139 @@ const firebaseApp=initializeApp(firebaseConfig);
 
 // initialize database
 const db = getFirestore(firebaseApp);
-const collectionName = "folders"
+const collectionName = "People-AuthenticationRequired"
 const subCollectionName = "tasks"
 
-function App() {
+// initialize authentication
+const auth = getAuth();
+
+function App(props) {
+    const [user, loading, error] = useAuthState(auth);
+
+    // email verification
+    function verifyEmail() {
+        void sendEmailVerification(user);
+    }
+
+    // authentication and log in
+    if (loading) {
+        return <p>Checking...</p>
+    } else if (user) {
+        return <div>
+            <div id={"Auth-bar"}>
+                {user.displayName || user.email}
+                <button class={"Auth-btn"} onClick={() => signOut(auth)} title={"Sign Out"}><i
+                    className="fa-solid fa-arrow-right-from-bracket"></i></button>
+            </div>
+            {!user.emailVerified && <button className={"Auth-btn"} type="button" onClick={verifyEmail}>Verify email</button>}
+            <SignedInApp {...props} user={user}/>
+        </div>
+    } else {
+        return <div id={"logInPage"}>
+            {error && <p>Error App: {error.message}</p>}
+            <SignIn key="Sign In"/>
+            <SignUp key="Sign Up"/>
+        </div>
+    }
+}
+
+function SignIn() {
+    const [
+        signInWithEmailAndPassword,
+        user1, loading1, error1
+    ] = useSignInWithEmailAndPassword(auth);
+    const [
+        signInWithGoogle,
+        user2, loading2, error2
+    ] = useSignInWithGoogle(auth);
+    const [email, setEmail] = useState("");
+    const [pw, setPw] = useState("");
+    if (user1 || user2 ) {
+        return <div className={"logInCenter"}>Unexpectedly signed in already</div>
+    } else if (loading1 || loading2) {
+        return <div className={"logInCenter"}>
+            <h1 className={"logInCenter"} id={"toDoListHeader"}>To Do List</h1>
+            <p className={"logInCenter"}>Logging in…</p>
+        </div>
+    }
+    return <div className={"logInCenter"}>
+        <h1 className={"logInCenter"} id={"toDoListHeader"}>To Do List</h1>
+        {error1 && error1.message === "Firebase: Error (auth/wrong-password)." && <p>Error: Incorrect Password</p>}
+        {error1 && error1.message === "Firebase: Error (auth/invalid-email)." && <p>Error: Invalid Email</p>}
+        {error1 && error1.message === "Firebase: Error (auth/user-not-found)." && <p>Error: User Does Not Exist</p>}
+        {error2 && error2.message === "Firebase: Error (auth/popup-closed-by-user)." && <p>Error: Google Sign In Failed</p>}
+        <h1  className={"logInText"}>Sign In</h1>
+        <br/>
+        <label  htmlFor='email'>Email </label>
+        <br/>
+        <input  type="text" id='email' value={email}
+                   onChange={e=>setEmail(e.target.value)}/>
+        <br/>
+        <label  htmlFor='pw'>Password </label>
+        <br/>
+        <input  type="password" id='pw' value={pw}
+                   onChange={e=>setPw(e.target.value)}/>
+        <br/>
+        <button className={"logInBtn"} onClick={() =>signInWithEmailAndPassword(email, pw)}>
+                Sign In
+        </button>
+        <br/>
+        <h1 id={"alt-signIn"} >or sign in with</h1>
+        <hr/>
+        <button className={"logInBtn"} id={"googleBtn"}onClick={() => signInWithGoogle()}>
+            <i className="fa-brands fa-google"></i>
+        </button>
+    </div>
+}
+
+function SignUp() {
+    const [
+        createUserWithEmailAndPassword,
+        userCredential, loading, error
+    ] = useCreateUserWithEmailAndPassword(auth);
+    const [email, setEmail] = useState("");
+    const [pw, setPw] = useState("");
+
+    if (userCredential) {
+        return <div className={"logInCenter"}>Unexpectedly signed in already</div>
+    } else if (loading) {
+        return <p className={"logInCenter"}>Signing up…</p>
+    }
+    return <div className={"logInCenter"}>
+        {error && error.message === "Firebase: Error (auth/email-already-in-use)." && <p>Error: Email Already Exists</p>}
+        {error && error.message === "Firebase: Error (auth/invalid-email)." && <p>Error: Invalid Email</p>}
+        {error && error.message === "Firebase: Password should be at least 6 characters (auth/weak-password)."
+            && <p>Error: Password needs to be at least 6 characters</p>}
+        <h1 className={"logInText"}>Sign Up</h1>
+        <br/>
+        <label htmlFor='email'>Email: </label>
+        <br/>
+        <input type="text" id='email' value={email}
+               onChange={e=>setEmail(e.target.value)}/>
+        <br/>
+        <label htmlFor='pw'>Password: </label>
+        <br/>
+        <input type="password" id='pw' value={pw}
+               onChange={e=>setPw(e.target.value)}/>
+        <br/>
+        <button className={"logInBtn"} onClick={() =>
+            createUserWithEmailAndPassword(email, pw)}>
+            Sign Up
+        </button>
+    </div>
+}
+
+
+function SignedInApp(props) {
     // query for folders collection
-    const foldersQuery = query(collection(db, collectionName));
+    const foldersQuery = query(collection(db, collectionName), where("sharedUsers", "array-contains", props.user.email));
     // retrieving the list of folders
     const [folders, loading, error] = useCollectionData(foldersQuery);
     // status of the "Tasks to complete" button
     const [hideComplete, setHideComplete] = useState(false);
-
     const storedTasks = {};
 
+    // storing tasks
     function storeTasks(folderId, tasks) {
         storedTasks[folderId] = tasks;
     }
@@ -70,7 +192,6 @@ function App() {
             completed: false,
             priority: 0
         });
-        console.log("return new unique ID")
         return uniqueId;
     }
 
@@ -79,6 +200,8 @@ function App() {
         const uniqueId = generateUniqueID();
         void setDoc(doc(db, collectionName, uniqueId),
             {
+                owner: props.user.email,
+                sharedUsers: [props.user.email],
                 id: uniqueId,
                 created: serverTimestamp(),
                 folderName: "New Folder",
@@ -91,11 +214,10 @@ function App() {
         for (const folderId in storedTasks){
             storedTasks[folderId].forEach(task => task.completed && deleteDoc(doc(db, collectionName, folderId, subCollectionName, task.id)));
         }
-        console.log(storedTasks)
     }
 
     function deleteFolder(folderId) {
-        deleteDoc(doc(db,collectionName, folderId));
+        void deleteDoc(doc(db,collectionName, folderId));
     }
 
     // Error and Loading check
@@ -103,17 +225,15 @@ function App() {
         return "loading..."
     }
     if (error) {
-        return "error..."
+        return <>error</>
     }
-
-        // Calling the three different components for our JSX
         return <>
                 <Taskbar setHideComplete={setHideComplete} hideComplete={hideComplete}
                          DeleteCompletedTasks={deleteCompletedTasks}/>
                 <Folders data={folders} db={db} setFolderProperty={setFolderProperty} setTaskProperty={setTaskProperty}
-                         hideComplete={hideComplete} addNewTask={addNewTask} storeTasks={storeTasks} deleteFolder={deleteFolder}/>
+                         hideComplete={hideComplete} addNewTask={addNewTask} storeTasks={storeTasks} deleteFolder={deleteFolder}
+                         user={props.user}/>
                 <BottomBar addNewFolder={addNewFolder}/>
         </>
 }
-
 export default App;

@@ -66,11 +66,11 @@ function Task(props) {
                 </div>
             }
             <button className="edit-btn"
-                    onClick={handleClickEditBtn} aria-label={"Edit Task button for "+props.task.taskName}>
+                    onClick={handleClickEditBtn} aria-label={"Edit Task button for "+props.task.taskName} title={"Edit Task"}>
                 <i className="fa-solid fa-pen-to-square"></i>
             </button>
             <button className="completed-btn"
-                    onClick={handleClickCompleteBtn} aria-label={"Completed button for "+props.task.taskName}>
+                    onClick={handleClickCompleteBtn} aria-label={"Completed button for "+props.task.taskName} title={"Complete Task"}>
                 <i className="fa-solid fa-check"></i>
             </button>
         </li>

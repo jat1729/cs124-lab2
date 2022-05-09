@@ -1,7 +1,6 @@
 import './BottomBar.css';
 
 function BottomBar(props) {
-    // adding a new folder
     function addNewFolder() {
         props.addNewFolder();
     }

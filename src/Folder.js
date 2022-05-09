@@ -10,7 +10,6 @@ function Folder(props) {
     const [editFolder,setEditFolder] = useState(false);
     // used to determine the direction of chevron button and whether tasks are shown
     const [showTasks, setShowTasks] = useState(true);
-
     const [editableTasks, setEditableTasks] = useState([]);
     // query for tasks collection
     // retrieving the list of tasks
@@ -24,7 +23,7 @@ function Folder(props) {
     } else if (props.folder.sort === "reverse-name") {
         sortOrder = orderBy("taskNameCaseInsesitive", "desc")
     }
-    let tasksQuery = query(collection(props.db, "folders", props.folder.id,"tasks"), sortOrder);
+    let tasksQuery = query(collection(props.db, "People-AuthenticationRequired", props.folder.id, "tasks"), sortOrder);
     const [tasks, loading, error] = useCollectionData(tasksQuery);
     props.storeTasks(props.folder.id, tasks);
 
@@ -38,9 +37,14 @@ function Folder(props) {
         setEditFolder(!editFolder);
     }
 
-    // Changing the status of edit folder when the edit button is clicked
+    // Handles deleting the folder
     function handleClickDeleteBtn() {
         props.deleteFolder(props.folder.id);
+    }
+
+    // Handles unsharing the folder
+    function handleClickUnshareBtn() {
+        props.setFolderProperty(props.folder.id, "sharedUsers", props.folder.sharedUsers.filter(email => email !== props.user.email));
     }
 
     //Toggles the chevron direction and task shown
@@ -51,7 +55,18 @@ function Folder(props) {
 
     // Editing the name of the folder
     function handleChangeEditBtn(newFolderName) {
-        props.setFolderProperty(props.folder.id, "folderName", newFolderName)
+        props.setFolderProperty(props.folder.id, "folderName", newFolderName);
+    }
+
+    // Sharing the folder
+    function handleClickShareBtn() {
+        let shareEmail = prompt("Share with", "example@gmail.com");
+        props.setFolderProperty(props.folder.id, "sharedUsers", props.folder.sharedUsers.concat(shareEmail));
+    }
+
+    // checks if owner of the folder
+    function isOwner() {
+        return props.user.email === props.folder.owner;
     }
 
     function handleChangePriorityBtn() {
@@ -90,7 +105,7 @@ function Folder(props) {
         sortIcon = "fa-solid fa-calendar";
         ariaMessage = "Sorted by Creation Date";
     }
-    sort_btn = <button className={"sort-folder-btn"} onClick={handleChangePriorityBtn} aria-label={ariaMessage}>
+    sort_btn = <button className={"sort-folder-btn"} onClick={handleChangePriorityBtn} aria-label={ariaMessage} title={"Sort Tasks"}>
         <i className={sortIcon}></i></button>;
 
     // Error and Loading check
@@ -99,10 +114,10 @@ function Folder(props) {
     }
 
     if (error) {
+        console.log("In Folder: ", error);
         return "error..";
     }
     return <div className={"folder-space"}>
-
             <div className={"folder"}>
                 {sort_btn}
                 {editFolder ?
@@ -111,21 +126,26 @@ function Folder(props) {
                                onKeyPress={handleEnterPress}/>:
                     <div className={"folderName"} tabIndex={"0"} onKeyPress={handleEnterPress} onClick={handleClickEditBtn}> {props.folder.folderName}</div>
                 }
-                <button className="delete-folder-btn" onClick={handleClickDeleteBtn} aria-label={"Delete " + props.folder.folderName}>
-                    <i className="fa-regular fa-trash-can"></i>
+                <button className="share-folder-btn" onClick={handleClickShareBtn} aria-label={"Share " + props.folder.folderName} title={"Share Folder"}>
+                    <i className="fa-solid fa-user-plus"></i>
                 </button>
+                {isOwner() ? <button className="delete-folder-btn" onClick={handleClickDeleteBtn} aria-label={"Delete " + props.folder.folderName} title={"Delete Folder"}>
+                    <i className="fa-regular fa-trash-can"></i>
+                </button> : <button className="delete-folder-btn" onClick={handleClickUnshareBtn} aria-label={"Unshare " + props.folder.folderName} title={"Unshare Folder"}>
+                    <i className="fa-regular fa-user-slash"></i>
+                </button>}
                 <button className={"edit-folder-btn"} onClick={handleClickEditBtn}
-                        aria-label={"Edit the name of "+ props.folder.folderName}>
+                        aria-label={"Edit the name of "+ props.folder.folderName} title={"Edit Folder Name"}>
                     <i className="fa-solid fa-pen-to-square"></i>
                 </button>
-                <button className={"new-task"} onClick={addNewTask} aria-label={"Add a New Task"}>
+                <button className={"new-task"} onClick={addNewTask} aria-label={"Add a New Task"} title={"Add New Task"}>
                     <i className="fa-solid fa-plus"></i>
                 </button>
                 {(showTasks && (tasks.length !== 0)) ?
-                <button className="drop-down-btn" onClick={handleClickChevronBtn} aria-label={"Show all task in "+ props.folder.folderName}>
+                <button className="drop-down-btn" onClick={handleClickChevronBtn} aria-label={"Show all task in "+ props.folder.folderName} title={"Show Tasks"}>
                     <i className="fa-solid fa-chevron-down"></i>
                 </button>:
-                    <button className="drop-down-btn" onClick={handleClickChevronBtn} aria-label={"Hide all task in "+ props.folder.folderName}>
+                    <button className="drop-down-btn" onClick={handleClickChevronBtn} aria-label={"Hide all task in "+ props.folder.folderName} title={"Hide Tasks"}>
                         <i className="fa-solid fa-chevron-right"></i>
                     </button>
                 }

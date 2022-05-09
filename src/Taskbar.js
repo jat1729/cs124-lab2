@@ -17,7 +17,7 @@ function Taskbar(props) {
         </button>
         <h1>To Do List</h1>
         <button id="trash-btn" className="btn"
-                onClick={handleTrashBtn} aria-label={"Delete Completed Tasks"}><i className="fa-regular fa-trash-can"></i>
+                onClick={handleTrashBtn} aria-label={"Delete Completed Tasks"} title={"Delete Completed Tasks"}><i className="fa-regular fa-trash-can"></i>
         </button>
         </div>
 }

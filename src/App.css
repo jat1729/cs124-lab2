@@ -2,25 +2,115 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #C1C8E4;
-    border-style: none;
+    border: none;
     display: flex;
     flex-direction: column;
-    padding: 0px;
-    margin: 0px;
-    border: 0px;
+    padding: 0;
+    margin: 0;
+    border: 0;
 }
 
 html, body {
     overflow: scroll;
 }
 
+/*Styling btn for authorization */
+.Auth-btn {
+    text-align: center;
+    font-size: 15px;
 
-/*!* General Layout *!*/
-/*#main-container {*/
-/*    !*max-height: 100%;*!*/
-/*    !*max-width: 100%;*!*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    padding: 0px;*/
+    background-color: #84CEEB;
+    border: none;
+    color: black;
 
-/*}*/
+    padding: 6px 4px;
+    border-radius: 6px;
+}
+
+.Auth-btn:hover {
+    background-color: #666666;
+}
+
+/* Display for signing in or signing up*/
+#Auth-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 25px;
+}
+
+/* Container for log in page */
+#logInPage {
+    display: grid;
+    grid-template-columns: 1fr 50% 1fr;
+}
+
+/* Inputs for the email and password*/
+input {
+    width: 100%;
+}
+
+/* Sign In and Sign up Headers*/
+.logInText{
+    text-align: left;
+    height: 20px;
+}
+
+/* Styles the sign in portion of the log in screen */
+#signIn {
+    grid-column: 2/span 1;
+    background-color: #5AB9EA;
+    padding: 50px;
+}
+
+/* Centers the log in page */
+.logInCenter {
+    grid-column: 2/span 1;
+    background-color: #84CEEB;
+    padding: 20px;
+    padding-bottom: 10px;
+}
+
+/* Centers the log in page */
+#alt-signIn {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Styles the buttons in the log in page*/
+.logInBtn {
+    border-radius: 25px;
+    grid-column: 3/span 1;
+    border: none;
+    background-color: #FCFCFC;
+}
+
+.logInBtn:hover {
+    background-color: #666666;
+}
+
+
+/* Styles the sign in with Google btn */
+#googleBtn {
+    alignment: center;
+    margin: 0 auto;
+    display: block;
+    border-radius: 50px;
+    font-size: 20px;
+}
+
+#googleBtn:hover {
+    background-color: #666666;
+}
+
+/* Header with To Do List for log in page */
+#toDoListHeader {
+    font-family:Arial;
+    font-size: 32px;
+    font-weight: normal;
+    width: 100%;
+    text-align: center;
+    flex-grow: 3;
+    padding: 0
+}

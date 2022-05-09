@@ -1,86 +1,65 @@
-# Lab 4 Design Document And Decisions
+# Lab 5 Design Document And Decisions
 
 # Introduction
 The creators of this to-do list app are Aditya Bhargava (HMC '23) and Joel Tan-Aristy (HMC '24). In this lab, 
 we designed and implemented an accessible to-do list using HTML, CSS, React, JavaScript, and Firebase. What makes our 
 to-do list different from other to-do lists is that we have an option for showing the tasks yet to complete, folders to 
-organize our tasks, different ways to sort your tasks, and additional support for multiple screen sizes  
+organize our tasks, different ways to sort your tasks, the ability to share folders with different users, and 
+authentication/authorization support. 
 
-## Accessibility
-Using our application entirely from the keyboard: https://photos.app.goo.gl/wN63KsLDpDQMEHEB7
+## Authentication/Log In Page
+We added a log in page in order to support signing in or signing up. Our main goal was to keep our UI consistent most 
+log in pages, so that users have familiarity with the design. We decided to keep the sign in and sign up contents within
+a different colored rectangle in order to shift the users' attention toward it. We also decided to place sign in above 
+sign up (similar to UI used for many websites) since users will be using the sign in section more than the sign up.
 
-Using our application using a screen reader: https://photos.app.goo.gl/Lf3bbU1djLsz3Zb99
+![login-Page](login-Page.png)
 
-We provided support for users with low vision (trouble seeing small print or objects). This was completed by making sure 
-that the color contrast between the foreground and background was Normal Text WCAG AA,AAA certified and Large Text WCAG 
-AA,AAA certified. The results can be seen below
-![contrastChecker1](contrastChecker1.png)
-![contrastChecker2](contrastChecker2.png)
+Sign in and Sign up utilized inputs for the email and password. For each input, we decided to have text above so that 
+the user understands what goes in each input. We also placed the sign in and sign up buttons below the password as is 
+commonly done.
 
-We provided support for users who can't use a mouse. This was completed by making our buttons and text elements "tabbable".
-Additionally, we added a function to our app so users can edit the name of folders or tasks by clicking the return button
-so users don't have to click on the edit button and go back to change the name of the folder or task. Another function we
-added was allowing the user to click the enter button when they want to save the changes to the folder or task name. This
-again removes excessive movement as users had to traverse to the edit button when they wanted to save changes to their 
-folder/task name. To make text elements tabbable, we added a ```tabIndex=0``` attribute to our div container that contained 
-the name of the text or folder. Our video of using our app entirely from the keyboard is above. 
+We added signing in with Google below the sign in section, so that users with Google accounts can sign in easily. We 
+added text above the sign in with Google button so that users clearly understand what the button does.
 
-We provided users who can't see at all (using a screen reader) additional support by adding aria-labels to our html elements. We found this
-task to be straightforward and used the guidelines from "Guidelines for Accessible and Usable Web Sites: Observing Users 
-Who Work With Screen Readers" by making the commands short, clear, and straightforward. One problem we faced was that the
-user was initially unable to tab through the name of the task/folder (listen to the to-do list without having to change/edit
-any aspect of the list). This was fixed by making the text elements tabbable and adding an aria-label so the screen reader
-can pick up on the text element. Our video of using our app using a screen reader is above.
+## Authentication Bar
+When users are signing into an account, we added a new bar at the top of the web page which contains the user's email or
+name in the top left, and the sign out button in the top right. If the user has not verified their email, the verification
+button will appear under the user's name or email. Upon a click, a verification email will be sent.
 
-## Folders
-Fortunately, we already implemented a folder/multiple lists of tasks functionality to our app in previous labs so it made
-this significantly reduced the workload of this week's lab. We did improve our folder functionality by changing the color
-of the new folder button, adding a delete folder button, and sorting the tasks in a folder by creation date. Our original
-new folder button looked like this 
+![authBar](auth-bar.png)
 
-![oldNewFolderButton](oldNewFolderButton.png) 
+## Authorization
+We established the authorization options of our app using Firestore's rules and by limiting our queries using the 
+```where``` and ```array-contains``` clause. We allow users to share their to-do lists with the following icon
 
-but after consulting with Prof. Rhodes, we changed the color to light blue. 
+![shareButton](shareButton.png) 
 
-![newNewFolderButton](newNewFolderButton.png)
+and allow users to "unshare" their to-do lists with the following icon
 
-We plan on completing user testing to determine which option is the best and hope to make our app
-aesthetically pleasing. Another feature we added was the delete folder button as we have been putting off this feature
-for about two labs (low priority in our previous labs). This feature was quite straightforward to implement as we used the
-same button for deleting completed tasks and called ```deleteDoc``` on the folder we wanted to be removed. One concern we have
-is that the number of buttons on a folder (4) may be excessive and make it hard for users to navigate. The last feature 
-we added to folders was sorting by creation date as we did not implement this last lab. This task was straightforward as
-we used Font-Awesome to retrieve a calendar icon and sorted the tasks by the ```created``` field when querying the tasks.
+![unShareButton](unShareButton.png)
 
-## Multiple Screen Sizes
-In order to support multiple screen sizes, we decided to prioritize the text space for the tasks and folders. The 
-difference can be seen between the wide screen below:
+If user A shares a to-do list with a user B, then user B can read, edit, create new tasks, delete tasks, and share the task with 
+other users. User B cannot delete the folder or remove user A's access to the to-do list. Additionally, user A cannot revoke 
+user B's access to the to-do list as sharing access is permanent. For the UI perspective of authorization, we designed our lists 
+so shared lists are minimally distinguishable from unshared lists with the trash icon being replaced by the "unshare" button for 
+shared lists. 
 
-![wideScreen](wideScreen.png)
+## Other
+In order to address some confusion with buttons, we added titles to each button that did not contain words. Thus, when 
+the user hovers over a button for a certain amount of time, a description of the button appears like so:
 
-And the narrow screen below:
-
-![narrowScreen](narrowScreen.png)
-
-We decided that increasing or decreasing text space based on screen size was the most logical means of supporting multiple
-screen sizes. This is due to the fact that the most important information to the user was the task description and folder
-description. Thus, depending on the screen size the user selected, the amount of space given to these descriptions would 
-change accordingly. To do this, we utilized a flex grow for the taskbar, and since our tasks and folders are made up of
-grid boxes, made the text be all the remaining free space.
-
-We encountered a bug in our CSS whenever we were changing the width of our screen below 290px and then tried to edit the
-name of either a folder or task. The size of the input would exceed the width of the screen. The fix to this bug was 
-setting the "width: 100%" for the inputs in both the folder and task. 
+![buttonDescription](button-decription.png)
 
 
 ## User Testing
-We completed user testing for the folder and accessibility feature of our app by testing 5 users. 3 out of 5 users could
-not tell that "Tasks to Complete" was a button so in Lab5 we will add a color contrast to that button (make it more apparent). 
-Additionally, 2 out of the 5 users didn't understand our default sorting icon (a calendar) so we will use the increasing
-priority sorting icon to portray the various sorting options. Another feature that made the app difficult to use was the 
-lack of color difference between edit and non-edit mode as the color contrast did not portray a difference (light blue vs. 
-dark blue). This stumped 4 out of 5 users and therefore a change we must make in lab 5. One user stated that he was 
-confused between the trash icons, so we hope to add a label for each icon (one for deleting a folder and one for deleting
-completed items).
+We completed user testing for the authentication and authorization feature of our app by testing 5 users. 
+3 out of 5 users found our error messages to be helpful and made the appropriate changes in an intuitive way. 
+One example of this was with the 6 character password requirement Firebase enforces when signing up with email and password 
+(our error message to the user relays this message in an informative way). 4 out of 5 users found the sharing buttons to be 
+quite instinctive with users understanding how to share with users (click the button and a pop-up shows up) and unshare the current 
+shared folder (click the unshare button near the edit button). Another feature that made the app difficult to use was the 
+lack of color difference between edit and non-edit mode. The color contrast did not portray a difference (light blue vs. 
+dark blue) and users were confused by which state they were in. We hope to update this in the future. 
 
 
